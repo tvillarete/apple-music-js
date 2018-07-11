@@ -5,18 +5,56 @@ import LibraryView from './library';
 import ArtistListView from './artist_list';
 import ArtistView from './artist';
 import AlbumView from './album';
+import { constants } from '../toolbox';
+
+const { color } = constants;
 
 const views = {
-   'Library': <LibraryView />,
-   'Artists': <ArtistListView />,
-   'Artist': <ArtistView />,
-   'Album': <AlbumView />,
+   Library: <LibraryView />,
+   Artists: <ArtistListView />,
+   Artist: <ArtistView />,
+   Album: <AlbumView />,
 };
 
 const Container = styled.div`
+   position: relative;
+   width: 100%;
+   max-width: 70em;
    flex: 1;
    overflow: auto;
-   margin-bottom: 64px;
+   margin: 0 auto 64px auto;
+   padding-left: 24px;
+   overflow: hidden;
+`;
+
+const PageContainer = styled.div`
+   z-index: ${props => (props.isPrevView ? 0 : 1)};
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   padding-left: 32px;
+   background: white
+   transform: ${props => (props.isPrevView && !props.returning ? 'translateX(-20%)' : null)};
+   animation: ${props => props.goingBack ? 'slideHi' : 'slideBye'} 0.3s ease-in-out;
+   transition: all 0.3s ease-in-out;
+   -webkit-overflow-scrolling: touch;
+   overflow: auto;
+
+   @keyframes slideBye {
+      0% {
+         opacity: 0;
+         transform: translateX(100vw);
+      }
+   }
+
+   @keyframes slideHi {
+      100% {
+         opacity: 0;
+         transform: translateX(100vw);
+      }
+   }
 `;
 
 const mapStateToProps = state => {
@@ -25,23 +63,76 @@ const mapStateToProps = state => {
    };
 };
 
-const CurrentView = connect(mapStateToProps)(({ viewState }) => {
-   const { stack } = viewState;
-   const { name, props } = stack[stack.length-1];
-   const view = views[name];
+const ViewStack = connect(mapStateToProps)(({ stack, goingBack }) => {
+   return stack.map(({ name, props }, index) => {
+      const view = views[name];
+      const isPrevView = index !== stack.length - 1;
 
-   try {
-      return React.cloneElement(view, props);
-   } catch (e) {
-      console.error('Error: This view is empty: ', view);
-   }
+      try {
+         return (
+            <PageContainer
+               key={`page-${index}`}
+               isPrevView={isPrevView}
+               returning={goingBack && index === stack.length - 2}
+               goingBack={goingBack && index === stack.length - 1}>
+               {React.cloneElement(view, props)}
+            </PageContainer>
+         );
+      } catch (e) {
+         console.error('Error: This view is empty: ', view);
+         return null;
+      }
+   });
 });
 
 class ViewContainer extends Component {
+   constructor(props) {
+      super(props);
+      const { viewState } = props;
+      const { stack } = viewState;
+
+      this.state = {
+         stack,
+         newStack: null,
+         goingBack: false,
+      };
+   }
+
+   static getDerivedStateFromProps(nextProps, prevState) {
+      const { viewState } = nextProps;
+      const { stack } = viewState;
+      const goingBack = stack.length < prevState.stack.length;
+
+      return {
+         stack: goingBack ? prevState.stack : stack,
+         goingBack,
+      }
+   }
+
+   animateBack() {
+      const { viewState } = this.props;
+      const { stack } = viewState;
+
+      setTimeout(() => {
+         this.setState({
+            stack,
+            goingBack: false
+         });
+      }, 280);
+   }
+
+   componentDidUpdate(nextProps, prevState) {
+      if (this.state.goingBack) {
+         this.animateBack();
+      }
+   }
+
    render() {
+      const { stack, goingBack } = this.state;
+
       return (
          <Container>
-            <CurrentView />
+            <ViewStack stack={stack} goingBack={goingBack} />
          </Container>
       );
    }

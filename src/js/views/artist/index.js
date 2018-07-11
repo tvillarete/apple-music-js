@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchArtist } from '../../api/actions';
 import { pushView } from '../actions';
-import { Title, AlbumButton } from '../../toolbox';
+import { AlbumButton } from '../../toolbox';
 
 const Container = styled.div``;
 
@@ -41,7 +41,6 @@ class ArtistView extends Component {
 
       return (
          <Container>
-            <Title label={artist} />
             <ButtonContainer>
                {albums &&
                   albums.map((item, index) => {

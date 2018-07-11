@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchArtists } from '../../api/actions';
 import { pushView } from '../actions';
-import { Button, Title } from '../../toolbox';
+import { Button } from '../../toolbox';
 
 const Container = styled.div``;
 
@@ -31,14 +31,12 @@ class ArtistListView extends Component {
 
       return (
          <Container>
-            <Title label="Artists" />
             <ButtonContainer>
                {artists &&
                   artists.map((artist, index) => (
                      <Button
                         key={artist.artist}
                         label={artist.artist}
-                        theme="red"
                         onClick={() => this.viewArtist(artist.artist)}
                      />
                   ))}

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import Controls from './components/controls';
 
 const OuterContainer = styled.div`
+   z-index: 100;
    position: fixed;
    bottom: 0;
    left: 0;
    right: 0;
    height: 64px;
-   background: blue;
    display: flex;
    justify-content: flex-start;
    align-items: center;

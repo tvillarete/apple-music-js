@@ -23,7 +23,10 @@ const TextContainer = styled.div`
    h2,
    h4 {
       font-weight: normal;
-      color: ${props => (props.theme ? color[props.theme][4] : color.gray[4])};
+      color: ${props =>
+         props.theme && props.theme.length
+            ? color[props.theme][4]
+            : color.black};
       user-select: none;
    }
 `;

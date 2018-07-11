@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { playSong } from '../../audio/actions';
 import { fetchAlbum } from '../../api/actions';
 import { pushView } from '../actions';
-import { Title, Button } from '../../toolbox';
+import { Button } from '../../toolbox';
 
 const Container = styled.div``;
 
@@ -33,14 +33,12 @@ class AlbumView extends Component {
 
       return (
          <Container>
-            <Title label={album} />
             <ButtonContainer>
                {tracks && tracks.map((item, index) => {
                   return (
                      <Button
                         key={item.name}
                         label={item.name}
-                        theme="gray"
                         onClick={() => this.playSong({ playlist: tracks, index })}
                         />
                   );
