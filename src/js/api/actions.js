@@ -50,6 +50,30 @@ export const fetchArtist = artist => {
    };
 };
 
+export const fetchAlbums = () => {
+   return dispatch => {
+      return Api
+         .fetchAlbums()
+         .then(albums => {
+            const albumData = {};
+
+            for (let album of albums) {
+               const name = album.album;
+               albumData[name] = [];
+            }
+
+            dispatch({
+               type: 'FETCH_ALBUM_LIST_SUCCESS',
+               albumData,
+               albums,
+            });
+         })
+         .catch(error => {
+      		console.log(error);
+         });
+   };
+};
+
 export const fetchAlbum = ({ artist, album }) => {
    return dispatch => {
       return Api

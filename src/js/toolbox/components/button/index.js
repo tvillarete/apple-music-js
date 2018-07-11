@@ -27,6 +27,7 @@ const TextContainer = styled.div`
          props.theme && props.theme.length
             ? color[props.theme][4]
             : color.black};
+      color: ${props => props.isPlaying && color.red[4]};
       user-select: none;
    }
 `;
@@ -45,12 +46,13 @@ const Button = ({
    label,
    sublabel,
    showIndex,
+   isPlaying,
    OptionsMenu,
    onClick,
 }) => {
    return (
       <Container onClick={onClick}>
-         <TextContainer theme={theme}>
+         <TextContainer isPlaying={isPlaying} theme={theme}>
             <Label>{label}</Label>
             <SubLabel>{sublabel}</SubLabel>
          </TextContainer>

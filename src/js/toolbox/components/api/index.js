@@ -38,6 +38,15 @@ class ApiClass {
       })
 	}
 
+   fetchAlbums = () => {
+      return this.makeRequest({
+         url: `${this.url}/albums`,
+         data: {
+            method: 'GET'
+         }
+      })
+	}
+
    fetchAlbum = ({ album }) => {
       return this.makeRequest({
          url: `${this.url}/album/${album}`,

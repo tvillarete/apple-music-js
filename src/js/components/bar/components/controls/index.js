@@ -16,7 +16,6 @@ const Container = styled.div`
    max-width: 400px;
    background: ${props => props.isFullscreen && '#fff'};
    transition: all 0.35s ease;
-   backdrop-filter: ${props => props.isFullscreen || 'blur(30px)'};
 `;
 
 const CloseControls = styled.div`

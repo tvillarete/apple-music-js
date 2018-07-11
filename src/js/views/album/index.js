@@ -15,7 +15,7 @@ const ButtonContainer = styled.div`
 class AlbumView extends Component {
    playSong = ({ playlist, index }) => {
       this.props.playSong({ playlist, index });
-   }
+   };
 
    componentDidMount() {
       const { album, apiState } = this.props;
@@ -27,22 +27,33 @@ class AlbumView extends Component {
    }
 
    render() {
-      const { album, apiState } = this.props;
+      const { album, apiState, audioState } = this.props;
+      const { playlist, currentIndex } = audioState;
       const { albumData } = apiState.data;
       const tracks = albumData[album];
+      const currentTrack = playlist.length && playlist[currentIndex];
 
       return (
          <Container>
             <ButtonContainer>
-               {tracks && tracks.map((item, index) => {
-                  return (
-                     <Button
-                        key={item.name}
-                        label={item.name}
-                        onClick={() => this.playSong({ playlist: tracks, index })}
+               {tracks &&
+                  tracks.map((item, index) => {
+                     return (
+                        <Button
+                           key={item.name}
+                           label={item.name}
+                           isPlaying={
+                              currentTrack &&
+                              item.name === currentTrack.name &&
+                              item.album === currentTrack.album &&
+                              item.artist === currentTrack.artist
+                           }
+                           onClick={() =>
+                              this.playSong({ playlist: tracks, index })
+                           }
                         />
-                  );
-               })}
+                     );
+                  })}
             </ButtonContainer>
          </Container>
       );
@@ -60,9 +71,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
    return {
       pushView: view => dispatch(pushView(view)),
-      playSong: ({ playlist, index }) => dispatch(playSong({ playlist, index })),
-      fetchAlbum: ({ album }) => dispatch(fetchAlbum({album})),
+      playSong: ({ playlist, index }) =>
+         dispatch(playSong({ playlist, index })),
+      fetchAlbum: ({ album }) => dispatch(fetchAlbum({ album })),
    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumView);
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps,
+)(AlbumView);

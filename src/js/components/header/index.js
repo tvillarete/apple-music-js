@@ -88,7 +88,6 @@ const mapDispatchToProps = dispatch => {
 
 const TitleStack = connect(mapStateToProps)(({ stack, goingBack, onClick }) => {
    return stack.map(({ name, title, props }, index) => {
-      const isPrevView = index !== stack.length - 1;
       const isHidden = index < stack.length - 2;
       const isBackButton = index === stack.length - 2;
       const isTitle = index === stack.length - 1;

@@ -48,6 +48,18 @@ const apiReducer = (state = initialState, action) => {
                }
             },
          };
+      case 'FETCH_ALBUM_LIST_SUCCESS':
+         return {
+            ...state,
+            data: {
+               ...state.data,
+               albumData: {
+                  ...state.data.albumData,
+                  ...action.albumData
+               },
+               albums: action.albums
+            },
+         };
       case 'FETCH_ALBUM_SUCCESS':
          return {
             ...state,

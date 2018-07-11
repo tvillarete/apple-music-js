@@ -5,14 +5,13 @@ import LibraryView from './library';
 import ArtistListView from './artist_list';
 import ArtistView from './artist';
 import AlbumView from './album';
-import { constants } from '../toolbox';
-
-const { color } = constants;
+import AlbumListView from './album_list';
 
 const views = {
    Library: <LibraryView />,
    Artists: <ArtistListView />,
    Artist: <ArtistView />,
+   Albums: <AlbumListView />,
    Album: <AlbumView />,
 };
 
@@ -44,14 +43,12 @@ const PageContainer = styled.div`
 
    @keyframes slideBye {
       0% {
-         opacity: 0;
          transform: translateX(100vw);
       }
    }
 
    @keyframes slideHi {
       100% {
-         opacity: 0;
          transform: translateX(100vw);
       }
    }
