@@ -34,6 +34,7 @@ const TextContainer = styled.div`
 
 const Label = styled.h2`
    margin: 0;
+   font-size: 1.3rem;
 `;
 
 const SubLabel = styled.h4`

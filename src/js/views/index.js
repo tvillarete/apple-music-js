@@ -33,7 +33,7 @@ const PageContainer = styled.div`
    bottom: 0;
    left: 0;
    right: 0;
-   padding-left: 32px;
+   padding-left: 24px;
    background: white
    transform: ${props => (props.isPrevView && !props.returning ? 'translateX(-20%)' : null)};
    animation: ${props => props.goingBack ? 'slideHi' : 'slideBye'} 0.3s ease-in-out;

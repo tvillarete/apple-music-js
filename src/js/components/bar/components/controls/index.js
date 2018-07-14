@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MiniControls from './mini_controls';
 import { toggleFullscreen } from '../../actions';
-import { nextSong } from '../../../../audio/actions';
+import { nextSong, pause } from '../../../../audio/actions';
+import VolumeSlider from './volume_slider';
 
 const Container = styled.div`
    position: fixed;
@@ -27,6 +28,10 @@ const CloseControls = styled.div`
    pointer-events: ${props => props.hidden && 'none'};
 `;
 
+const FullscreenControls = styled.div`
+   display: ${props => props.hidden && 'none'};
+`;
+
 const mapStateToProps = state => {
    return {
       audioState: state.audioState,
@@ -38,18 +43,21 @@ const mapDispatchToProps = dispatch => {
    return {
       nextSong: () => dispatch(nextSong()),
       toggleFullscreen: () => dispatch(toggleFullscreen()),
+      pause: () => dispatch(pause()),
    };
 };
 
 class Controls extends Component {
-   componentDidUpdate() {
-      const { audioState } = this.props;
-      const { isPlaying } = audioState;
+   constructor(props) {
+      super(props);
+      this.state = {
+         volume: props.audioState.volume
+      }
+   }
 
-      if (isPlaying && this.audioElement) {
-         this.playAudio();
-      } else if (!isPlaying && this.audioElement && this.audioElement.src) {
-         this.pauseAudio();
+   static getDerivedStateFromProps(nextProps, prevState) {
+      return {
+         volume: nextProps.volume
       }
    }
 
@@ -68,10 +76,29 @@ class Controls extends Component {
       this.props.nextSong();
    };
 
+   changeVolume = (val) => {
+      console.log(val);
+   }
+
+   componentDidUpdate(nextProps) {
+      const { audioState, volume } = this.props;
+      const { isPlaying } = audioState;
+
+      if (this.audioElement && this.audioElement.volume !== volume) {
+         this.audioElement.volume = nextProps.audioState.volume;
+      }
+
+      if (isPlaying && this.audioElement) {
+         this.playAudio();
+      } else if (!isPlaying && this.audioElement && this.audioElement.src) {
+         this.pauseAudio();
+      }
+   }
+
    render() {
       const { navState, audioState } = this.props;
       const { isFullscreen } = navState;
-      const { playlist, currentIndex } = audioState;
+      const { playlist, currentIndex, volume } = audioState;
       const track = !!playlist.length ? playlist[currentIndex] : null;
 
       return (
@@ -81,11 +108,15 @@ class Controls extends Component {
                onClick={this.props.toggleFullscreen}>
             </CloseControls>
             <MiniControls />
+            <FullscreenControls hidden={!isFullscreen}>
+               <VolumeSlider />
+            </FullscreenControls>
             {track && (
                <audio
                   ref={audio => {
                      this.audioElement = audio;
                   }}
+                  volume={volume}
                   id="audio"
                   onEnded={this.nextSong}
                   src={`http://tannerv.ddns.net:12345/SpotiFree/${track.url}`}

@@ -3,9 +3,11 @@ const initialState = {
    hasAudio: false,
    currentIndex: 0,
    playlist: [],
+   volume: 0.5,
 };
 
 const audioReducer = (state = initialState, action) => {
+   console.log(action);
    switch (action.type) {
       case 'PLAY_SONG':
          return {
@@ -31,6 +33,11 @@ const audioReducer = (state = initialState, action) => {
             isPlaying:
                state.isPlaying && state.currentIndex !== state.playlist.length,
             currentIndex: state.currentIndex + 1,
+         };
+      case 'CHANGE_VOLUME':
+         return {
+            ...state,
+            volume: action.volume,
          };
       default:
          return state;
