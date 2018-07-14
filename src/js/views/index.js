@@ -21,7 +21,7 @@ const Container = styled.div`
    max-width: 70em;
    flex: 1;
    overflow: auto;
-   margin: 0 auto 64px auto;
+   margin: 48px auto 64px auto;
    padding-left: 24px;
    overflow: hidden;
 `;

@@ -5,7 +5,9 @@ import { fetchArtist } from '../../api/actions';
 import { pushView } from '../actions';
 import { AlbumButton } from '../../toolbox';
 
-const Container = styled.div``;
+const Container = styled.div`
+   margin-top: 48px;
+`;
 
 const ButtonContainer = styled.div`
    display: flex;
@@ -19,6 +21,7 @@ class ArtistView extends Component {
          name: 'Album',
          title: album,
          props: {
+            hideTitle: true,
             artist,
             album
          }

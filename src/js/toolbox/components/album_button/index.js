@@ -6,14 +6,17 @@ const { color } = constants;
 
 const Container = styled.div`
    margin: 0 16px 16px;
-   width: 200px;
+   width: 185px;
    cursor: pointer;
 `;
 
 const ImgContainer = styled.div`
 `;
 const Artwork = styled.img`
+   border-radius: 4px;
    max-width: 100%;
+   pointer-events: none;
+   user-select: none;
 `;
 
 const TextContainer = styled.div`
@@ -23,12 +26,14 @@ const TextContainer = styled.div`
 const Label = styled.h4`
    font-weight: normal;
    margin: 0;
+   user-select: none;
 `;
 
 const SubLabel = styled.h4`
    color: ${color.gray[5]};
    font-weight: normal;
    margin: 0;
+   user-select: none;
 `;
 
 const AlbumButton = ({

@@ -7,13 +7,18 @@ import { popView } from '../../views/actions';
 const { color } = constants;
 
 const Container = styled.div`
-   position: relative;
-   width: 100%;
-   max-width: 70em;
-   margin: 0 auto;
-   height: 86px;
+   z-index: 2;
+   position: fixed;
    display: flex;
+   top: 0;
+   left: 0;
+   right: 0;
+   max-width: 72em;
+   margin: 0 auto;
+   height: ${props => props.hideTitle ? '48px' : '86px'};
+   background: white;
    overflow: hidden;
+   transition: all 0.3s ease-in-out;
 `;
 
 const ChevronContainer = styled.div`
@@ -37,8 +42,11 @@ const ChevronContainer = styled.div`
 const TitleContainer = styled.div`
    position: absolute;
    margin-top: ${props =>
-      (props.isBackButton && !props.goingBack) || props.isHidden ? '11px' : '48px'};
-   margin-left: ${props => (props.isHidden && !props.goingBack ? '-100%' : '24px')};
+      (props.isBackButton && !props.goingBack) || props.isHidden
+         ? '11px'
+         : '48px'};
+   margin-left: ${props =>
+      props.isHidden && !props.goingBack ? '-100%' : '24px'};
    margin-left: ${props => props.isTitle && props.goingBack && '100vw'};
    animation: ${props => (props.isLeaving ? 'slideOut' : 'slideIn')} 0.3s
       ease-in-out;
@@ -46,12 +54,18 @@ const TitleContainer = styled.div`
 
    h1 {
       color: ${props =>
-         (props.isBackButton && !props.goingBack) || props.isHidden ? color.red[4] : color.black};
+         (props.isBackButton && !props.goingBack) || props.isHidden
+            ? color.red[4]
+            : color.black};
       color: ${props => props.isTitle && props.goingBack && 'white'};
       font-weight: ${props =>
-         (props.isBackButton && !props.goingBack) || props.isHidden ? 300 : 'bold'};
+         (props.isBackButton && !props.goingBack) || props.isHidden
+            ? 'normal'
+            : 'bold'};
       font-size: ${props =>
-         (props.isBackButton && !props.goingBack) || props.isHidden ? '20px' : null};
+         (props.isBackButton && !props.goingBack) || props.isHidden
+            ? '20px'
+            : null};
       opacity: ${props => (props.isHidden && !props.goingBack ? 0 : 1)};
       cursor: ${props => props.isBackButton && 'pointer'};
    }
@@ -92,36 +106,39 @@ const TitleStack = connect(mapStateToProps)(({ stack, goingBack, onClick }) => {
       const isBackButton = index === stack.length - 2;
       const isTitle = index === stack.length - 1;
 
-      return (
+      return index >= stack.length - 3 && (
          <TitleContainer
             key={`title-${name}`}
             isHidden={isHidden}
             isBackButton={isBackButton}
             goingBack={goingBack}
             isTitle={isTitle}>
-            <Title onClick={() => (isBackButton ? onClick() : null)}>
-               {title || name}
-            </Title>
+            {!props.hideTitle && (
+               <Title onClick={() => (isBackButton ? onClick() : null)}>
+                  {title || name}
+               </Title>
+            )}
          </TitleContainer>
       );
    });
 });
 
-const BackButton = connect(mapStateToProps, mapDispatchToProps)(
-   ({ viewState, popView }) => {
-      const { stack } = viewState;
+const BackButton = connect(
+   mapStateToProps,
+   mapDispatchToProps,
+)(({ viewState, popView }) => {
+   const { stack } = viewState;
 
-      if (stack.length <= 1) {
-         return null;
-      }
+   if (stack.length <= 1) {
+      return null;
+   }
 
-      return (
-         <ChevronContainer>
-            <Icon name="chevron-left" onClick={popView} />
-         </ChevronContainer>
-      );
-   },
-);
+   return (
+      <ChevronContainer>
+         <Icon name="chevron-left" onClick={popView} />
+      </ChevronContainer>
+   );
+});
 
 class Header extends Component {
    constructor(props) {
@@ -131,6 +148,7 @@ class Header extends Component {
 
       this.state = {
          stack,
+         hideTitle: props.hideTitle,
          newStack: null,
          goingBack: false,
       };
@@ -154,7 +172,7 @@ class Header extends Component {
       setTimeout(() => {
          this.setState({
             stack,
-            goingBack: false
+            goingBack: false,
          });
       }, 280);
    }
@@ -167,9 +185,11 @@ class Header extends Component {
 
    render() {
       const { stack, goingBack } = this.state;
+      const currentView = stack[stack.length-1];
+      const { hideTitle } = currentView.props;
 
       return (
-         <Container>
+         <Container hideTitle={hideTitle && !goingBack}>
             <BackButton />
             <TitleStack
                stack={stack}
@@ -181,4 +201,7 @@ class Header extends Component {
    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps,
+)(Header);

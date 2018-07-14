@@ -145,7 +145,7 @@ class MiniControls extends Component {
       const { navState, audioState } = this.props;
       const { isFullscreen } = navState;
       const { hasAudio, isPlaying, playlist, currentIndex } = audioState;
-      const track = playlist.length
+      const track = hasAudio && currentIndex < playlist.length
          ? playlist[currentIndex]
          : {
               name: 'SpotiReact',
@@ -154,7 +154,7 @@ class MiniControls extends Component {
               artwork: 'hi.com',
               track: '1',
            };
-      const artwork = hasAudio
+      const artwork = hasAudio && currentIndex < playlist.length
          ? `http://tannerv.ddns.net:12345/SpotiFree/files/music/${
               track.artist
            }/${track.album}/Artwork.png`

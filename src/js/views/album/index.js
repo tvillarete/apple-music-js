@@ -4,12 +4,37 @@ import styled from 'styled-components';
 import { playSong } from '../../audio/actions';
 import { fetchAlbum } from '../../api/actions';
 import { pushView } from '../actions';
-import { Button } from '../../toolbox';
+import { Button, constants } from '../../toolbox';
 
-const Container = styled.div``;
+const { color } = constants;
+
+const Container = styled.div`
+   display: flex;
+`;
+
+const ArtworkContainer = styled.div`
+   margin-right: 32px;
+`;
+
+const Artwork = styled.img`
+   border: 1px solid ${color.gray[2]};
+   border-radius: 6px;
+   pointer-events: none;
+   user-select: none;
+`;
 
 const ButtonContainer = styled.div`
-   margin-top: 16px;
+   flex: 1;
+`;
+
+const Title = styled.h1`
+   margin: 0 0 8px;
+`;
+
+const Subtitle = styled.h2`
+   color: ${color.red[4]};
+   font-weight: normal;
+   margin: 0 0 16px 0;
 `;
 
 class AlbumView extends Component {
@@ -31,11 +56,21 @@ class AlbumView extends Component {
       const { playlist, currentIndex } = audioState;
       const { albumData } = apiState.data;
       const tracks = albumData[album];
+      const artwork = tracks[0] && tracks[0].artwork;
+      const artist = tracks[0] && tracks[0].artist;
       const currentTrack = playlist.length && playlist[currentIndex];
+      const url = artwork
+         ? `http://tannerv.ddns.net:12345/SpotiFree/${artwork}`
+         : `https://lastfm-img2.akamaized.net/i/u/300x300/c6f59c1e5e7240a4c0d427abd71f3dbb`;
 
       return (
          <Container>
+            <ArtworkContainer>
+               <Artwork src={url} />
+            </ArtworkContainer>
             <ButtonContainer>
+               <Title>{album}</Title>
+               <Subtitle>{artist}</Subtitle>
                {tracks &&
                   tracks.map((item, index) => {
                      return (
