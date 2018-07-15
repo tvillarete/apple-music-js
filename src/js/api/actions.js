@@ -90,3 +90,14 @@ export const fetchAlbum = ({ artist, album }) => {
          });
    };
 };
+
+export const fetchPlaylists = () => {
+   return dispatch => {
+      const playlists = localStorage.appleMusicPlaylists;
+
+      dispatch({
+         type: 'FETCH_PLAYLIST_LIST_SUCCESS',
+         playlists: playlists ? JSON.parse(playlists) : []
+      });
+   };
+};

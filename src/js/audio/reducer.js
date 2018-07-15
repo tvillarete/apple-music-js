@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const audioReducer = (state = initialState, action) => {
-   console.log(action);
    switch (action.type) {
       case 'PLAY_SONG':
          return {

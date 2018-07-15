@@ -2,6 +2,7 @@ const initialState = {
    data: {
       artists: [],
       albums: [],
+      playlists: [],
       artistData: {},
       albumData: {},
    },
@@ -19,21 +20,6 @@ const apiReducer = (state = initialState, action) => {
             },
          };
       case 'FETCH_ARTIST_SUCCESS':
-         const hi = {
-            ...state,
-            data: {
-               ...state.data,
-               artistData: {
-                  ...state.data.artistData,
-                  [action.name]: action.albums,
-               },
-               albumData: {
-                  ...state.data.albumData,
-                  ...action.albumData
-               }
-            },
-         };
-         console.log(hi);
          return {
             ...state,
             data: {
@@ -71,6 +57,15 @@ const apiReducer = (state = initialState, action) => {
                }
             },
          };
+      case 'FETCH_PLAYLIST_LIST_SUCCESS':
+         return {
+            ...state,
+            data: {
+               ...state.data,
+               playlists: action.playlists
+            },
+         };
+
       default:
          return state;
    }

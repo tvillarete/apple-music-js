@@ -2,7 +2,7 @@
   "name": "spotireact",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://tannerv.com/music",
+  "homepage": "http://tannerv.com/music",
   "dependencies": {
     "feather-icons": "^4.7.3",
     "react": "^16.4.1",

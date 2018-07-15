@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import ViewContainer from './views';
 import Header from './components/header';
+import PopupContainer from './popups';
 import BottomBar from './components/bar';
 
 const Container = styled.div`
@@ -20,6 +21,7 @@ export default class SpotiFree extends Component {
          <Container>
             <Header />
             <ViewContainer />
+            <PopupContainer />
             <BottomBar />
          </Container>
       );
