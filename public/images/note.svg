@@ -1,0 +1,42 @@
+<svg width="102" height="116" viewBox="0 0 102 116" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Canvas" fill="none">
+<g id="note">
+<g id="Note">
+<g id="Rectangle">
+<rect width="4" height="40" transform="translate(28.5 25.5) scale(1.5)" fill="#FF2D55"/>
+</g>
+<g id="Rectangle_2">
+<path d="M 0 0L 4 0L 4 12.7L 0 14L 0 0Z" transform="translate(28.5 78.45) scale(1.5)" fill="#FF2D55"/>
+</g>
+<g id="Rectangle_3">
+<path d="M 0 0.782683L 7.54037 0L 5.24435 4.96559L 3.07971 6.54982C 3.54165 2.30546 3.37516 1.56408 0 0.782683Z" transform="matrix(0.312147 1.46716 -1.46716 0.312147 29.6483 78.9371)" fill="#FF2D55"/>
+</g>
+<g id="Rectangle_4">
+<path d="M 0 0.39753L 7.62496 0L 5.32894 4.96559L 2.7679 6.60951C 3.22984 2.36516 3.37516 1.17893 0 0.39753Z" transform="matrix(0.312147 1.46716 -1.46716 0.312147 93.5832 70.3759)" fill="#FF2D55"/>
+</g>
+<g id="Rectangle_5">
+<path d="M 0.00401315 4.65928C 0.00190251 2.20882 2.18365 0.332523 4.60618 0.701422L 13.3611 2.03461C 15.3357 2.3353 16.7859 4.04657 16.7585 6.04378L 16.2195 45.4113C 16.1863 47.8381 14.0171 49.6763 11.6177 49.3109L 3.43582 48.065C 1.48303 47.7676 0.0396978 46.0893 0.0379965 44.114L 0.00401315 4.65928Z" transform="matrix(0.225814 1.48291 -1.48291 0.225814 99 0)" fill="#FF2D55"/>
+</g>
+<g id="Ellipse">
+<path d="M 21.7858 8.76529C 21.7858 13.5824 16.9622 17.4874 11.0121 17.4874C 5.06189 17.4874 0 13.5391 0 8.72207C 0 3.905 4.82355 0 10.7737 0C 16.7239 0 21.7858 3.94822 21.7858 8.76529Z" transform="matrix(1.47594 -0.2676 0.2676 1.47594 0 88.7161)" fill="#FF2D55"/>
+</g>
+<g id="Rectangle_6">
+<rect width="4" height="46" transform="translate(93 7.94998) scale(1.5)" fill="#FF2D55"/>
+</g>
+<g id="Rectangle_7">
+<rect width="4" height="14" transform="translate(93 69.45) scale(1.5)" fill="#FF2D55"/>
+</g>
+<g id="Ellipse_2">
+<ellipse cx="10.7737" cy="8.72207" rx="10.7737" ry="8.72207" transform="matrix(1.47594 -0.2676 0.2676 1.47594 64.5 79.7161)" fill="#FF2D55"/>
+</g>
+</g>
+<g id="Vector">
+<path d="M 0 5C 0.5 1 1.5 0.5 7 0L 0 0L 0 5Z" transform="translate(34.5 33) scale(1.5)" fill="#FF2D55"/>
+</g>
+<g id="Vector_2">
+<path d="M 1.49323 7.00145C 0.9971 3.00097 1.5 0 7 0L 0 0L 1.49323 7.00145Z" transform="matrix(0.00144992 1.5 -1.5 0.00144992 93 25.5)" fill="#FF2D55"/>
+</g>
+</g>
+</g>
+</svg>
+

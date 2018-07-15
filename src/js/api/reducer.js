@@ -2,7 +2,7 @@ const initialState = {
    data: {
       artists: [],
       albums: [],
-      playlists: [],
+      playlists: {},
       artistData: {},
       albumData: {},
    },
@@ -65,7 +65,14 @@ const apiReducer = (state = initialState, action) => {
                playlists: action.playlists
             },
          };
-
+      case 'CREATE_PLAYLIST':
+         return {
+            ...state,
+            data: {
+               ...state.data,
+               playlists: action.playlists
+            },
+         };
       default:
          return state;
    }

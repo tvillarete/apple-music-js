@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { constants } from '../../toolbox';
-import { fetchPlaylists } from '../../api/actions';
+import { constants, FileInput } from '../../toolbox';
+import { fetchPlaylists, createPlaylist } from '../../api/actions';
 import { pushView, popPopup } from '../../views/actions';
 import Header from '../components/header';
 
@@ -17,8 +17,7 @@ const Container = styled.div`
    left: 0;
    right: 0;
    background: white;
-   animation: ${props =>
-         props.closing ? slideOutToBottom : slideInFromBottom}
+   animation: ${props => (props.closing ? slideOutToBottom : slideInFromBottom)}
       0.3s ease-in-out;
 `;
 
@@ -34,6 +33,35 @@ const Title = styled.h3`
    margin: 0;
 `;
 
+const Section = styled.div`
+   display: flex;
+   padding: 0 16px;
+`;
+
+const TitleInput = styled.textarea`
+   margin-left: 16px;
+   -webkit-appearance: none;
+   font-size: 24px;
+   border: none;
+   outline: none;
+   flex: 1;
+   resize: none;
+   caret-color: ${color.red[4]};
+`;
+
+const DescriptionInput = styled.textarea`
+   margin: 16px 0 16px 16px;
+   -webkit-appearance: none;
+   font-size: 24px;
+   border: none;
+   outline: none;
+   flex: 1;
+   resize: none;
+   caret-color: ${color.red[4]};
+   border-top: 1px solid ${color.gray[3]};
+   border-bottom: 1px solid ${color.gray[3]};
+`;
+
 const mapStateToProps = state => {
    return {
       viewState: state.viewState,
@@ -46,26 +74,73 @@ const mapDispatchToProps = dispatch => {
       pushView: view => dispatch(pushView(view)),
       popPopup: () => dispatch(popPopup()),
       fetchPlaylists: () => dispatch(fetchPlaylists()),
+      createPlaylist: playlist => dispatch(createPlaylist(playlist)),
    };
 };
 
-const PlaylistCreator = ({ index, closing, onSave, popPopup }) => {
-   return (
-      <Container index={index} closing={closing}>
-         <Header
-            left={<Button onClick={popPopup}>Cancel</Button>}
-            center={<Title>New Playlist</Title>}
-            right={
-               <Button bold onClick={popPopup}>
-                  Done
-               </Button>
-            }
-         />
-      </Container>
-   );
-};
+class PlaylistCreator extends Component {
+   state = {
+      img: /* Base64 encoded string */ null,
+      title: '',
+      description: '',
+      tracks: [],
+   };
 
-export default connect(
-   mapStateToProps,
-   mapDispatchToProps,
-)(PlaylistCreator);
+   handleImageUpload = img => {
+      this.setState({ img });
+   };
+
+   createPlaylist = () => {
+      const description = document.getElementById('playlist-description').value;
+      const title = document.getElementById('playlist-title').value;
+      const { img, tracks } = this.state;
+
+      if (!title || !description) {
+         alert("Make sure to add a title and description!");
+         return;
+      }
+
+      const playlist = {
+         title,
+         description,
+         img,
+         tracks,
+      };
+
+      this.props.createPlaylist(playlist);
+      this.props.popPopup();
+   };
+
+   render() {
+      const { index, closing } = this.props;
+
+      return (
+         <Container index={index} closing={closing}>
+            <Header
+               left={<Button onClick={this.props.popPopup}>Cancel</Button>}
+               center={<Title>New Playlist</Title>}
+               right={
+                  <Button bold onClick={this.createPlaylist}>
+                     Done
+                  </Button>
+               }
+            />
+            <Section>
+               <FileInput
+                  img={'images/photo_add.png'}
+                  onUpload={this.handleImageUpload}
+               />
+               <TitleInput id="playlist-title" placeholder="Playlist Name" />
+            </Section>
+            <Section>
+               <DescriptionInput
+                  id="playlist-description"
+                  placeholder="Description"
+               />
+            </Section>
+         </Container>
+      );
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaylistCreator);

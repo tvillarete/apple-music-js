@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchPlaylists } from '../../api/actions';
 import { pushView, pushPopup } from '../actions';
-import { Button } from '../../toolbox';
+import { PlaylistButton } from '../../toolbox';
 
 const Container = styled.div`
    margin-top: 48px;
@@ -12,43 +12,58 @@ const Container = styled.div`
 const ButtonContainer = styled.div``;
 
 class PlaylistListView extends Component {
-   viewPlaylist = ({playlist, index}) => {
+   viewPlaylist = ({ playlist, index }) => {
       this.props.pushView({
          name: 'Playlist',
          title: playlist.title,
          props: {
+            hideTitle: true,
             index,
-            playlist
-         }
+            playlist,
+         },
       });
-   }
+   };
 
    newPlaylist = () => {
       this.props.pushPopup({
          name: 'Playlist Creator',
-         props: {}
+         props: {},
       });
-   }
+   };
 
    componentDidMount() {
       this.props.fetchPlaylists();
    }
 
-   render() {
+   getPlaylistButtons = () => {
       const { playlists } = this.props.apiState.data;
+      const playlistButtons = [];
 
+      for (let [key, playlist] of Object.entries(playlists)) {
+         playlistButtons.push(
+            <PlaylistButton
+               key={`${key}-${playlist.title}-${playlist.description}`}
+               title={playlist.title}
+               img={playlist.img || 'images/music.jpg'}
+               onClick={() => this.viewPlaylist({ playlist })}
+            />,
+         );
+      }
+      return playlistButtons;
+   };
+
+   render() {
       return (
          <Container>
             <ButtonContainer>
-               {playlists &&
-                  playlists.map((playlist, index) => (
-                     <Button
-                        key={`${playlist.title}-${index}`}
-                        label={playlist.title}
-                        onClick={() => this.viewPlaylist({playlist, index})}
-                     />
-                  ))}
-               <h3 onClick={this.newPlaylist}>New Playlist</h3>
+               <PlaylistButton
+                  key="new-playlist-button"
+                  title="New Playlist..."
+                  img="images/playlist_add.jpg"
+                  color="red"
+                  onClick={this.newPlaylist}
+               />
+               {this.getPlaylistButtons()}
             </ButtonContainer>
          </Container>
       );

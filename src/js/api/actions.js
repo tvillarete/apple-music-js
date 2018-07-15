@@ -2,33 +2,31 @@ import { Api } from '../toolbox';
 
 export const fetchArtists = () => {
    return dispatch => {
-      return Api
-         .fetchArtists()
+      return Api.fetchArtists()
          .then(artists => {
             // The albums of each artist
             const artistData = {};
 
             for (let i in artists) {
-               const artist  = artists[i].artist;
+               const artist = artists[i].artist;
                artistData[artist] = [];
             }
 
             dispatch({
                type: 'FETCH_ARTIST_LIST_SUCCESS',
                artists,
-               artistData
+               artistData,
             });
          })
          .catch(error => {
-      		console.log(error);
+            console.log(error);
          });
    };
 };
 
 export const fetchArtist = artist => {
    return dispatch => {
-      return Api
-         .fetchArtist(artist)
+      return Api.fetchArtist(artist)
          .then(albums => {
             const albumData = {};
 
@@ -41,19 +39,18 @@ export const fetchArtist = artist => {
                type: 'FETCH_ARTIST_SUCCESS',
                name: artist,
                albums,
-               albumData
+               albumData,
             });
          })
          .catch(error => {
-      		console.log(error);
+            console.log(error);
          });
    };
 };
 
 export const fetchAlbums = () => {
    return dispatch => {
-      return Api
-         .fetchAlbums()
+      return Api.fetchAlbums()
          .then(albums => {
             const albumData = {};
 
@@ -69,24 +66,23 @@ export const fetchAlbums = () => {
             });
          })
          .catch(error => {
-      		console.log(error);
+            console.log(error);
          });
    };
 };
 
 export const fetchAlbum = ({ artist, album }) => {
    return dispatch => {
-      return Api
-         .fetchAlbum({ artist, album })
+      return Api.fetchAlbum({ artist, album })
          .then(tracks => {
             dispatch({
                type: 'FETCH_ALBUM_SUCCESS',
                album,
-               tracks
+               tracks,
             });
          })
          .catch(error => {
-      		console.log(error);
+            console.log(error);
          });
    };
 };
@@ -97,7 +93,23 @@ export const fetchPlaylists = () => {
 
       dispatch({
          type: 'FETCH_PLAYLIST_LIST_SUCCESS',
-         playlists: playlists ? JSON.parse(playlists) : []
+         playlists: playlists ? JSON.parse(playlists) : [],
+      });
+   };
+};
+
+export const createPlaylist = playlist => {
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists
+         ? JSON.parse(localStorage.appleMusicPlaylists)
+         : {};
+
+      playlists[playlist.title] = playlist;
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'CREATE_PLAYLIST',
+         playlists,
       });
    };
 };

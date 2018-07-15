@@ -1,0 +1,18 @@
+<svg width="39" height="12" viewBox="0 0 39 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Chevron Down</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(90 371)">
+<g id="Chevron Down">
+<g id="Rectangle 2.1">
+<use xlink:href="#path0_fill" transform="matrix(0.325664 0.945486 -0.936812 0.349834 -52.9149 -371.495)" fill="#B7B7B7"/>
+</g>
+<g id="Rectangle 2.2">
+<use xlink:href="#path1_fill" transform="matrix(0.325664 -0.945486 0.936812 0.349834 -90 -366.618)" fill="#B7B7B7"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 2.60285C 0 1.16534 1.16533 0 2.60284 0L 2.60284 0C 4.04035 0 5.20568 1.16533 5.20568 2.60284L 5.20568 19.7188C 5.20568 21.1563 4.04035 22.3217 2.60284 22.3217L 2.60284 22.3217C 1.16533 22.3217 0 21.1563 0 19.7188L 0 2.60285Z"/>
+<path id="path1_fill" d="M 0 2.59436C 0 1.16153 1.16153 0 2.59435 0L 2.59435 0C 4.02717 0 5.18871 1.16153 5.18871 2.59435L 5.18871 19.7273C 5.18871 21.1601 4.02717 22.3217 2.59435 22.3217L 2.59435 22.3217C 1.16153 22.3217 0 21.1601 0 19.7273L 0 2.59436Z"/>
+</defs>
+</svg>

@@ -7,6 +7,7 @@ import ArtistView from './artist';
 import AlbumView from './album';
 import AlbumListView from './album_list';
 import PlaylistListView from './playlist_list';
+import PlaylistView from './playlist';
 
 const views = {
    Library: <LibraryView />,
@@ -15,6 +16,7 @@ const views = {
    Albums: <AlbumListView />,
    Album: <AlbumView />,
    Playlists: <PlaylistListView />,
+   Playlist: <PlaylistView />,
 };
 
 const Container = styled.div`
