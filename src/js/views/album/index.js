@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { playSong } from '../../audio/actions';
 import { fetchAlbum } from '../../api/actions';
-import { pushView } from '../actions';
+import { pushView, pushPopup } from '../actions';
 import { Button, constants } from '../../toolbox';
 
 const { color } = constants;
@@ -41,6 +41,13 @@ class AlbumView extends Component {
    playSong = ({ playlist, index }) => {
       this.props.playSong({ playlist, index });
    };
+
+   setupOptionsMenu = () => {
+      this.props.pushPopup({
+         name: "Options",
+         props: {}
+      });
+   }
 
    componentDidMount() {
       const { album, apiState } = this.props;
@@ -83,6 +90,8 @@ class AlbumView extends Component {
                               item.album === currentTrack.album &&
                               item.artist === currentTrack.artist
                            }
+                           OptionsMenu={true}
+                           onOptionsClick={this.setupOptionsMenu}
                            onClick={() =>
                               this.playSong({ playlist: tracks, index })
                            }
@@ -106,6 +115,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
    return {
       pushView: view => dispatch(pushView(view)),
+      pushPopup: popup => dispatch(pushPopup(popup)),
       playSong: ({ playlist, index }) =>
          dispatch(playSong({ playlist, index })),
       fetchAlbum: ({ album }) => dispatch(fetchAlbum({ album })),

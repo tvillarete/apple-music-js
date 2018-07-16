@@ -7,6 +7,25 @@ export default {
       }
    `,
 
+   fadeOut: keyframes`
+      100% {
+         opacity: 0;
+      }
+   `,
+
+   scale: keyframes`
+      0% {
+         transform: scale(0);
+      }
+   `,
+
+   scaleOut: keyframes`
+      100% {
+         transform: scale(0);
+         opacity: 0;
+      }
+   `,
+
    slideInFromBottom: keyframes`
       0% {
          transform: translateY(100vh);

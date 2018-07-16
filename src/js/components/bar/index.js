@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Controls from './components/controls';
 
 const OuterContainer = styled.div`
-   z-index: 100;
+   z-index: 50;
    position: fixed;
    bottom: 0;
    left: 0;

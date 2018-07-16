@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PlaylistCreator from './playlist_creator';
+import OptionsMenu from './options';
 
 const popups = {
-   'Playlist Creator': <PlaylistCreator />
+   'Playlist Creator': <PlaylistCreator />,
+   'Options': <OptionsMenu />
 };
 
 const Container = styled.div``;
