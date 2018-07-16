@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import constants from '../../constants';
+import Icon from '../icon';
 
 const { color } = constants;
 
 const Container = styled.div`
    display: flex;
+   justify-content: space-between;
    min-height: 48px;
    border-bottom: 1px solid ${color.gray[3]};
    cursor: pointer;
@@ -41,6 +43,19 @@ const SubLabel = styled.h4`
    margin: 0;
 `;
 
+const OptionsContainer = styled.div`
+   height: 3em;
+   width: 3em;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   svg {
+      height: 20px;
+      width: 20px;
+   }
+`;
+
 const Button = ({
    index,
    theme,
@@ -50,14 +65,24 @@ const Button = ({
    isPlaying,
    OptionsMenu,
    onClick,
+   onOptionsClick,
 }) => {
+   const handleOptionsClick = e => {
+      e.stopPropagation();
+      onOptionsClick();
+   };
+
    return (
       <Container onClick={onClick}>
          <TextContainer isPlaying={isPlaying} theme={theme}>
             <Label>{label}</Label>
             <SubLabel>{sublabel}</SubLabel>
          </TextContainer>
-         {OptionsMenu && OptionsMenu}
+         {OptionsMenu && (
+            <OptionsContainer onClick={handleOptionsClick}>
+               <Icon name="more-horizontal" />
+            </OptionsContainer>
+         )}
       </Container>
    );
 };

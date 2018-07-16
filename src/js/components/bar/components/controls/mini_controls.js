@@ -155,9 +155,7 @@ class MiniControls extends Component {
               track: '1',
            };
       const artwork = hasAudio && currentIndex < playlist.length
-         ? `http://tannerv.ddns.net:12345/SpotiFree/files/music/${
-              track.artist
-           }/${track.album}/Artwork.png`
+         ? `http://tannerv.ddns.net:12345/SpotiFree/${track.artwork}`
          : `https://lastfm-img2.akamaized.net/i/u/300x300/c6f59c1e5e7240a4c0d427abd71f3dbb`;
 
       return (

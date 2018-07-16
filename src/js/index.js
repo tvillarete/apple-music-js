@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import WelcomeScreen from './components/welcome';
 import ViewContainer from './views';
 import Header from './components/header';
 import PopupContainer from './popups';
@@ -19,6 +20,7 @@ export default class SpotiFree extends Component {
    render() {
       return (
          <Container>
+            <WelcomeScreen />
             <Header />
             <ViewContainer />
             <PopupContainer />
