@@ -148,7 +148,7 @@ class MiniControls extends Component {
       const track = hasAudio && currentIndex < playlist.length
          ? playlist[currentIndex]
          : {
-              name: 'SpotiReact',
+              name: ' Music.js',
               artist: 'Tanner Villarete',
               album: 'My App',
               artwork: 'hi.com',

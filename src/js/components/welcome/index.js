@@ -27,7 +27,6 @@ const LogoContainer = styled.div`
    padding-bottom: 1vh;
    overflow: hidden;
    transition: all 0.5s;
-   animation: ${animation.fadeIn} 0.3s;
    animation: ${props => props.isClosing ? animation.scaleOut : animation.scale} 0.3s ease;
 
    ${breakpointSm} {
@@ -82,7 +81,7 @@ export default class WelcomScreen extends Component {
       setTimeout(() => {
          this.setState({
             showMusic: true,
-            width: '30vh'
+            width: '18rem'
          });
       }, 300);
       setTimeout(() => {
