@@ -59,7 +59,8 @@ const MusicLogo = styled.img`
 
 const JsLogo = styled.img`
    position: absolute;
-   top: 2px;
+   width: 2.25rem;
+   top: 20px;
    animation: ${animation.scale} 0.3s ease;
 
    ${breakpointSm} {
