@@ -3,15 +3,29 @@ import styled from 'styled-components';
 import constants from '../../constants';
 
 const { color } = constants;
+const breakpointSm = `@media screen and (max-width: 750px)`;
 
 const Container = styled.div`
    margin: 0 16px 16px;
    width: 185px;
    cursor: pointer;
+
+   ${breakpointSm} {
+      margin: 16px 16px 0 0;
+      width: auto;
+      flex: 0 44%;
+   }
+
+   &:active {
+      img {
+         filter: brightness(65%);
+      }
+   }
 `;
 
 const ImgContainer = styled.div`
 `;
+
 const Artwork = styled.img`
    border-radius: 4px;
    max-width: 100%;

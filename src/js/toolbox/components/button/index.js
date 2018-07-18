@@ -7,20 +7,23 @@ const { color } = constants;
 
 const Container = styled.div`
    display: flex;
-   justify-content: space-between;
    min-height: 48px;
    border-bottom: 1px solid ${color.gray[3]};
    cursor: pointer;
 
-   &:hover {
+   &:active {
       background: ${color.gray[2]};
    }
 `;
 
 const TextContainer = styled.div`
    display: flex;
+   flex: 1;
    flex-direction: column;
    justify-content: center;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 
    h2,
    h4 {

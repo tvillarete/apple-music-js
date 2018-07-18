@@ -31,6 +31,7 @@ const LogoContainer = styled.div`
 
    ${breakpointSm} {
       height: 2rem;
+      width: ${props => props.width === '18rem' && '10rem'};
    }
 `;
 

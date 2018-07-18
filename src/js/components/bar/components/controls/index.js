@@ -17,7 +17,14 @@ const Container = styled.div`
    max-width: 400px;
    background: ${props => props.isFullscreen && '#fff'};
    transition: all 0.35s ease;
+
+   @media screen and (max-width: 750px) {
+      z-index: 0;
+      max-width: none;
+   }
 `;
+
+const Svg = styled.img``;
 
 const CloseControls = styled.div`
    display: flex;
@@ -26,6 +33,8 @@ const CloseControls = styled.div`
    height: ${props => props.hidden ? '0' : '48px'};
    opacity: ${props => props.hidden && '0'};
    pointer-events: ${props => props.hidden && 'none'};
+   transition: all 0.35s ease;
+   cursor: pointer;
 `;
 
 const FullscreenControls = styled.div`
@@ -106,6 +115,7 @@ class Controls extends Component {
             <CloseControls
                hidden={!isFullscreen}
                onClick={this.props.toggleFullscreen}>
+               <Svg src="images/chevron_wide.svg" />
             </CloseControls>
             <MiniControls />
             <FullscreenControls hidden={!isFullscreen}>

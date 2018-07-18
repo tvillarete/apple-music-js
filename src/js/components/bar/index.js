@@ -13,6 +13,11 @@ const OuterContainer = styled.div`
    display: flex;
    justify-content: flex-start;
    align-items: center;
+
+   @media screen and (max-width: 750px) {
+      height: 7em;
+      flex-direction: column-reverse;
+   }
 `;
 
 const mapStateToProps = state => {

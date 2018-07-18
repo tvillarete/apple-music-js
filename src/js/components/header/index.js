@@ -25,6 +25,13 @@ const ChevronContainer = styled.div`
    animation: scale 0.25s;
    cursor: pointer;
 
+
+   &:active {
+      svg: {
+         color: ${props => props.isBackButton && color.redAlpha[2]};
+      }
+   }
+
    svg {
       color: ${color.red[4]};
       height: 40px;
@@ -43,7 +50,7 @@ const TitleContainer = styled.div`
    position: absolute;
    margin-top: ${props =>
       (props.isBackButton && !props.goingBack) || props.isHidden
-         ? '11px'
+         ? '9px'
          : '48px'};
    margin-left: ${props =>
       props.isHidden && !props.goingBack ? '-100%' : '24px'};
@@ -68,6 +75,11 @@ const TitleContainer = styled.div`
             : null};
       opacity: ${props => (props.isHidden && !props.goingBack ? 0 : 1)};
       cursor: ${props => props.isBackButton && 'pointer'};
+
+
+      &:active {
+         color: ${props => props.isBackButton && color.redAlpha[2]};
+      }
    }
 
    @keyframes slideIn {

@@ -47,6 +47,7 @@ const TitleInput = styled.textarea`
    flex: 1;
    resize: none;
    caret-color: ${color.red[4]};
+   font-family: 'SF Pro Display';
 `;
 
 const DescriptionInput = styled.textarea`
@@ -60,6 +61,7 @@ const DescriptionInput = styled.textarea`
    caret-color: ${color.red[4]};
    border-top: 1px solid ${color.gray[3]};
    border-bottom: 1px solid ${color.gray[3]};
+   font-family: 'SF Pro Display';
 `;
 
 const mapStateToProps = state => {

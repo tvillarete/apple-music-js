@@ -7,13 +7,24 @@ import { pushView, pushPopup } from '../actions';
 import { Button, constants } from '../../toolbox';
 
 const { color } = constants;
+const breakpointSm = `@media screen and (max-width: 750px)`;
 
 const Container = styled.div`
    display: flex;
+
+   ${breakpointSm} {
+      display: block;
+   }
 `;
 
 const ArtworkContainer = styled.div`
    margin-right: 32px;
+
+   ${breakpointSm} {
+      display: block;
+      margin-right: 8px;
+      height: 100%;
+   }
 `;
 
 const Artwork = styled.img`
@@ -21,20 +32,51 @@ const Artwork = styled.img`
    border-radius: 6px;
    pointer-events: none;
    user-select: none;
+   max-height: 100%;
 `;
 
 const ButtonContainer = styled.div`
    flex: 1;
 `;
 
+const MobileHeader = styled.div`
+   position: relative;
+   display: flex;
+   height: 20vh;
+   margin-bottom: 16px;
+
+   @media screen and (min-width: 750px) {
+      display: none;
+   }
+`;
+
+const TitleContainer = styled.div`
+   display: flex;
+   flex-direction: column;
+`;
+
 const Title = styled.h1`
    margin: 0 0 8px;
+
+   ${breakpointSm} {
+      font-size: 3.5vh;
+   }
 `;
 
 const Subtitle = styled.h2`
    color: ${color.red[4]};
    font-weight: normal;
    margin: 0 0 16px 0;
+
+   ${breakpointSm} {
+      font-size: 3vh;
+   }
+`;
+
+const VisibleDesktop = styled.div`
+   @media screen and (max-width: 750px) {
+      display: none;
+   }
 `;
 
 class AlbumView extends Component {
@@ -72,12 +114,25 @@ class AlbumView extends Component {
 
       return (
          <Container>
-            <ArtworkContainer>
-               <Artwork src={url} />
-            </ArtworkContainer>
+            <MobileHeader>
+               <ArtworkContainer>
+                  <Artwork src={url} />
+               </ArtworkContainer>
+               <TitleContainer>
+                  <Title>{album}</Title>
+                  <Subtitle>{artist}</Subtitle>
+               </TitleContainer>
+            </MobileHeader>
+            <VisibleDesktop>
+               <ArtworkContainer>
+                  <Artwork src={url} />
+               </ArtworkContainer>
+            </VisibleDesktop>
             <ButtonContainer>
-               <Title>{album}</Title>
-               <Subtitle>{artist}</Subtitle>
+               <VisibleDesktop>
+                  <Title>{album}</Title>
+                  <Subtitle>{artist}</Subtitle>
+               </VisibleDesktop>
                {tracks &&
                   tracks.map((item, index) => {
                      return (

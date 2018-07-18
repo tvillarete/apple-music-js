@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { constants, Icon } from '../../../../toolbox';
+import { constants } from '../../../../toolbox';
 import { toggleFullscreen } from '../../actions';
 import { resume, pause, nextSong } from '../../../../audio/actions';
 
@@ -12,7 +12,8 @@ const Container = styled.div`
    height: ${props => (props.isFullscreen ? '30vh' : '64px')};
    width: 100%;
    text-align: center;
-   border-left: ${props => props.isFullscreen || '1px solid' + color.gray[2]};
+   border-left: 1px solid
+      ${props => (props.isFullscreen ? 'transparent' : color.gray[2])};
    box-sizing: border-box;
    cursor: ${props => props.isFullscreen || 'pointer'};
    background: ${props => props.isFullscreen && '#fff'};
@@ -75,6 +76,12 @@ const ButtonContainer = styled.div`
       height: 32px;
       width: 32px;
    }
+`;
+
+const Svg = styled.img`
+   height: 24px;
+   width: 24px;
+   margin: 0 8px;
 `;
 
 const mapStateToProps = state => {
@@ -145,18 +152,21 @@ class MiniControls extends Component {
       const { navState, audioState } = this.props;
       const { isFullscreen } = navState;
       const { hasAudio, isPlaying, playlist, currentIndex } = audioState;
-      const track = hasAudio && currentIndex < playlist.length
-         ? playlist[currentIndex]
-         : {
-              name: ' Music.js',
-              artist: 'Tanner Villarete',
-              album: 'My App',
-              artwork: 'hi.com',
-              track: '1',
-           };
-      const artwork = hasAudio && currentIndex < playlist.length
-         ? `http://tannerv.ddns.net:12345/SpotiFree/${track.artwork}`
-         : `https://lastfm-img2.akamaized.net/i/u/300x300/c6f59c1e5e7240a4c0d427abd71f3dbb`;
+      const path = 'images';
+      const track =
+         hasAudio && currentIndex < playlist.length
+            ? playlist[currentIndex]
+            : {
+                 name: ' Music.js',
+                 artist: 'Tanner Villarete',
+                 album: 'My App',
+                 artwork: 'hi.com',
+                 track: '1',
+              };
+      const artwork =
+         hasAudio && currentIndex < playlist.length
+            ? `http://tannerv.ddns.net:12345/SpotiFree/${track.artwork}`
+            : `https://lastfm-img2.akamaized.net/i/u/300x300/c6f59c1e5e7240a4c0d427abd71f3dbb`;
 
       return (
          <Container
@@ -173,10 +183,12 @@ class MiniControls extends Component {
                <SongTitle>{track.name}</SongTitle>
                <ButtonContainer>
                   {!(hasAudio && isPlaying) && (
-                     <Icon name="play" onClick={this.resume} />
+                     <Svg src={`${path}/play.svg`} onClick={this.resume} />
                   )}
-                  {isPlaying && <Icon name="pause" onClick={this.pause} />}
-                  <Icon name="skip-forward" onClick={this.nextSong} />
+                  {isPlaying && (
+                     <Svg src={`${path}/pause.svg`} onClick={this.pause} />
+                  )}
+                  <Svg src={`${path}/skip_next.svg`} onClick={this.nextSong} />
                </ButtonContainer>
             </InfoContainer>
          </Container>
