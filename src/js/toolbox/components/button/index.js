@@ -59,6 +59,20 @@ const OptionsContainer = styled.div`
    }
 `;
 
+const ChevronContainer = styled.div`
+   height: 3em;
+   width: 3em;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   svg {
+      color: ${color.gray[4]};
+      height: 20px;
+      width: 20px;
+   }
+`;
+
 const Button = ({
    index,
    theme,
@@ -68,6 +82,7 @@ const Button = ({
    isPlaying,
    OptionsMenu,
    onClick,
+   chevron,
    onOptionsClick,
 }) => {
    const handleOptionsClick = e => {
@@ -85,6 +100,11 @@ const Button = ({
             <OptionsContainer onClick={handleOptionsClick}>
                <Icon name="more-horizontal" />
             </OptionsContainer>
+         )}
+         {chevron && (
+            <ChevronContainer>
+               <Icon name="chevron-right" />
+            </ChevronContainer>
          )}
       </Container>
    );

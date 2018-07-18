@@ -45,6 +45,7 @@ class PlaylistListView extends Component {
                key={`${key}-${playlist.title}-${playlist.description}`}
                title={playlist.title}
                img={playlist.img || 'images/music.jpg'}
+               chevron
                onClick={() => this.viewPlaylist({ playlist })}
             />,
          );

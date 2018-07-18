@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import constants from '../../constants';
+import Icon from '../icon';
 
 const { color } = constants;
 
@@ -46,10 +47,25 @@ const Title = styled.h3`
    color: ${props => props.color ? color[props.color][4] : 'black'};
 `;
 
+const ChevronContainer = styled.div`
+   height: 100%;
+   width: 3em;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   svg {
+      color: ${color.gray[4]};
+      height: 20px;
+      width: 20px;
+   }
+`;
+
 const PlaylistButton = ({
    title,
    img,
    color,
+   chevron,
    onClick,
 }) => {
    return (
@@ -59,7 +75,12 @@ const PlaylistButton = ({
          </ImgContainer>
          <TextContainer>
             <Title color={color}>{title}</Title>
-         </TextContainer>
+            </TextContainer>
+         {chevron && (
+            <ChevronContainer>
+               <Icon name="chevron-right" />
+            </ChevronContainer>
+         )}
       </Container>
    );
 };

@@ -39,6 +39,7 @@ class ArtistListView extends Component {
                      <Button
                         key={artist.artist}
                         label={artist.artist}
+                        chevron
                         onClick={() => this.viewArtist(artist.artist)}
                      />
                   ))}

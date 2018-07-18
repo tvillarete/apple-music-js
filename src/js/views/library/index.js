@@ -25,16 +25,19 @@ class LibraryView extends Component {
                <Button
                   label="Artists"
                   theme="red"
+                  chevron
                   onClick={() => this.changeView('Artists')}
                />
                <Button
                   label="Albums"
                   theme="red"
+                  chevron
                   onClick={() => this.changeView('Albums')}
                />
                <Button
                   label="Playlists"
                   theme="red"
+                  chevron
                   onClick={() => this.changeView('Playlists')}
                />
             </ButtonContainer>
