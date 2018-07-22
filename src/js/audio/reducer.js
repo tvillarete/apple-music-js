@@ -3,18 +3,28 @@ const initialState = {
    hasAudio: false,
    currentIndex: 0,
    playlist: [],
+   recents: localStorage.appleMusicRecents
+      ? JSON.parse(localStorage.appleMusicRecents)
+      : [],
    volume: 0.5,
 };
 
 const audioReducer = (state = initialState, action) => {
    switch (action.type) {
       case 'PLAY_SONG':
+         let recents = state.recents.filter(
+            (track, index) => track.album !== action.playlist[action.index].album && index < 7,
+         );
+         recents.splice(0, 0, action.playlist[action.index]);
+         localStorage.appleMusicRecents = JSON.stringify(recents);
+
          return {
             ...state,
             isPlaying: true,
             hasAudio: true,
             playlist: action.playlist,
             currentIndex: action.index,
+            recents,
          };
       case 'RESUME':
          return {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { playSong } from '../../audio/actions';
-import { fetchAlbum } from '../../api/actions';
+import { fetchAlbums, fetchAlbum } from '../../api/actions';
 import { pushView, pushPopup } from '../actions';
 import { Button, constants } from '../../toolbox';
 
@@ -93,9 +93,14 @@ class AlbumView extends Component {
 
    componentDidMount() {
       const { album, apiState } = this.props;
-      const { albumData } = apiState.data;
+      const { albums, albumData } = apiState.data;
 
-      if (!albumData[album].length) {
+      if (albums.length === 0) {
+         this.props.fetchAlbums();
+         this.props.fetchAlbum({ album });
+      }
+
+      if (!albumData[album] || !albumData[album].length) {
          this.props.fetchAlbum({ album });
       }
    }
@@ -105,8 +110,8 @@ class AlbumView extends Component {
       const { playlist, currentIndex } = audioState;
       const { albumData } = apiState.data;
       const tracks = albumData[album];
-      const artwork = tracks[0] && tracks[0].artwork;
-      const artist = tracks[0] && tracks[0].artist;
+      const artwork = tracks ? tracks[0] && tracks[0].artwork : null;
+      const artist = tracks ? tracks[0] && tracks[0].artist : 'Loading';
       const currentTrack = playlist.length && playlist[currentIndex];
       const url = artwork
          ? `http://tannerv.ddns.net:12345/SpotiFree/${artwork}`
@@ -173,6 +178,7 @@ const mapDispatchToProps = dispatch => {
       pushPopup: popup => dispatch(pushPopup(popup)),
       playSong: ({ playlist, index }) =>
          dispatch(playSong({ playlist, index })),
+      fetchAlbums: () => dispatch(fetchAlbums()),
       fetchAlbum: ({ album }) => dispatch(fetchAlbum({ album })),
    };
 };
