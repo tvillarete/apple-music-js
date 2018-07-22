@@ -33,6 +33,14 @@ const audioReducer = (state = initialState, action) => {
                state.isPlaying && state.currentIndex !== state.playlist.length,
             currentIndex: state.currentIndex + 1,
          };
+      case 'PREV_SONG':
+         return {
+            ...state,
+            currentIndex:
+               state.currentIndex > 0
+                  ? state.currentIndex - 1
+                  : state.currentIndex,
+         };
       case 'CHANGE_VOLUME':
          return {
             ...state,

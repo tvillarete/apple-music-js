@@ -9,6 +9,9 @@ import { constants } from '../../../../../toolbox';
 const { color } = constants;
 
 const Container = styled.div`
+   height: 48px;
+   display: flex;
+
    .rangeslider-horizontal.time-slider,
    .volume-slider {
       height: 4px;

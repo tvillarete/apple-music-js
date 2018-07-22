@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import { constants } from '../../../../toolbox';
 import { toggleFullscreen } from '../../actions';
@@ -9,25 +9,36 @@ const { color } = constants;
 
 const Container = styled.div`
    position: relative;
-   height: ${props => (props.isFullscreen ? '30vh' : '64px')};
+   height: 64px;
    width: 100%;
    text-align: center;
-   border-left: 1px solid
-      ${props => (props.isFullscreen ? 'transparent' : color.gray[2])};
+   border-left: 1px solid ${color.gray[2]};
    box-sizing: border-box;
-   cursor: ${props => props.isFullscreen || 'pointer'};
-   background: ${props => props.isFullscreen && '#fff'};
    transition: all 0.35s ease;
+
+   ${props => props.isFullscreen && css`
+      height: 30vh;
+      border-left: 1px solid transparent;
+      width: 100%;
+      cursor: pointer;
+      background: #fff;
+   `}
 `;
 
 const ArtworkContainer = styled.div`
    position: relative;
-   height: ${props => (props.isFullscreen ? '40vh' : '64px')};
+   height: 64px;
    max-height: 100%;
-   width: ${props => (props.isFullscreen ? '100%' : '64px')};
+   width: 64px;
    padding: 8px 0;
    text-align: center;
    transition: all 0.35s ease;
+
+   ${props => props.isFullscreen && css`
+      height: 40vh;
+      min-height: 8em;
+      width: 100%;
+   `}
 `;
 
 const Artwork = styled.img`

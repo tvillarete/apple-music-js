@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Controls from './components/controls';
+import Cover from './components/controls/cover';
 
 const OuterContainer = styled.div`
    z-index: 50;
@@ -31,6 +32,7 @@ class BottomBar extends Component {
    render() {
       return (
          <OuterContainer>
+            <Cover />
             <Controls />
          </OuterContainer>
       );

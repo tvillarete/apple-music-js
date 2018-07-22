@@ -6,7 +6,6 @@ export default {
          opacity: 0;
       }
    `,
-
    fadeOut: keyframes`
       100% {
          opacity: 0;
@@ -36,5 +35,5 @@ export default {
       100% {
          transform: translateY(100vh);
       }
-   `,
+      `,
 };

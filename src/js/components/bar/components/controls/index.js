@@ -4,18 +4,19 @@ import { connect } from 'react-redux';
 import MiniControls from './mini_controls';
 import { toggleFullscreen } from '../../actions';
 import { nextSong, pause } from '../../../../audio/actions';
+//import Cover from './cover';
+import TrackInfo from './track_info';
+import TrackButtons from './track_buttons';
 import VolumeSlider from './volume_slider';
 
 const Container = styled.div`
    position: fixed;
-   display: flex;
-   flex-direction: column;
    bottom: 0;
    right: 0;
    height: ${props => (props.isFullscreen ? '100%' : '64px')};
    width: 100%;
    max-width: 400px;
-   background: ${props => props.isFullscreen && '#fff'};
+   background: #fff;
    transition: all 0.35s ease;
 
    @media screen and (max-width: 750px) {
@@ -38,7 +39,8 @@ const CloseControls = styled.div`
 `;
 
 const FullscreenControls = styled.div`
-   display: ${props => props.hidden && 'none'};
+   opacity: ${props => props.hide && 0};
+   transition: all 0.35s ease;
 `;
 
 const mapStateToProps = state => {
@@ -118,7 +120,9 @@ class Controls extends Component {
                <Svg src="images/chevron_wide.svg" />
             </CloseControls>
             <MiniControls />
-            <FullscreenControls hidden={!isFullscreen}>
+            <FullscreenControls hide={!isFullscreen}>
+               <TrackInfo />
+               <TrackButtons />
                <VolumeSlider />
             </FullscreenControls>
             {track && (

@@ -103,7 +103,6 @@ export default class WelcomScreen extends Component {
 
    render() {
       const { isOpen, isClosing } = this.state;
-      console.log(this.state);
 
       return (
          <Container isOpen={isOpen || isClosing} isClosing={isClosing}>
