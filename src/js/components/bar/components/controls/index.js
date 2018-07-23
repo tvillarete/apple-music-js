@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import MiniControls from './mini_controls';
 import { toggleFullscreen } from '../../actions';
 import { nextSong, pause } from '../../../../audio/actions';
-//import Cover from './cover';
 import TrackInfo from './track_info';
 import TrackButtons from './track_buttons';
 import VolumeSlider from './volume_slider';

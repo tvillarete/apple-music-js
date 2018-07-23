@@ -15,12 +15,13 @@ const Container = styled.div`
    border-left: 1px solid ${color.gray[2]};
    box-sizing: border-box;
    transition: all 0.35s ease;
+   cursor: pointer;
 
    ${props => props.isFullscreen && css`
       height: 30vh;
       border-left: 1px solid transparent;
       width: 100%;
-      cursor: pointer;
+      cursor: default;
       background: #fff;
    `}
 `;

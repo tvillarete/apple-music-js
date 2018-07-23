@@ -5,7 +5,7 @@ import { toggleFullscreen } from '../../actions';
 import { constants } from '../../../../toolbox';
 
 const { color, animation } = constants;
-const { fadeOut } = animation;
+const { fadeIn, fadeOut } = animation;
 
 const Container = styled.div`
    position: fixed;
@@ -15,8 +15,8 @@ const Container = styled.div`
    left: 0;
    right: 0;
    background: ${color.grayAlpha[4]};
-   transition: all 0.3s ease;
-   animation: ${props => props.isClosing && fadeOut} 0.3s ease;
+   cursor: pointer;
+   animation: ${props => (props.isClosing ? fadeOut : fadeIn)} 0.35s ease;
 `;
 
 const mapStateToProps = state => {
@@ -43,37 +43,37 @@ class Cover extends Component {
       };
    }
 
-   /*
-   static getDerivedStateFromProps(nextProps) {
-      console.log(nextProps.navState);
+   static getDerivedStateFromProps(nextProps, prevState) {
       return {
-         isOpen: nextProps.navState.isFullscreen
-      }
+         isOpen: nextProps.navState.isFullscreen,
+         isClosing: !nextProps.navState.isFullscreen && prevState.isOpen,
+      };
    }
 
    animateClosed() {
-      this.setState({
-         isClosing: true,
-      });
-
       setTimeout(() => {
          this.setState({
             isOpen: false,
-				isClosing: false
-			});
-      }, 350);
-      }
+            isClosing: false,
+         });
+      }, 330);
+   }
 
    componentDidUpdate(nextProps) {
-      if (!nextProps.navState.isFullscreen && this.state.isOpen) {
+      if (this.state.isClosing) {
          this.animateClosed();
       }
-      }
-     */
+   }
 
    render() {
       const { isOpen, isClosing } = this.state;
-      return <Container isOpen={isOpen || isClosing} isClosing={isClosing} />;
+      return (
+         <Container
+            isOpen={isOpen || isClosing}
+            isClosing={isClosing}
+            onClick={this.props.toggleFullscreen}
+         />
+      );
    }
 }
 
