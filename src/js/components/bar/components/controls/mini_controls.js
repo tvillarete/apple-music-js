@@ -17,13 +17,15 @@ const Container = styled.div`
    transition: all 0.35s ease;
    cursor: pointer;
 
-   ${props => props.isFullscreen && css`
-      height: 30vh;
-      border-left: 1px solid transparent;
-      width: 100%;
-      cursor: default;
-      background: #fff;
-   `}
+   ${props =>
+      props.isFullscreen &&
+      css`
+         height: 30vh;
+         border-left: 1px solid transparent;
+         width: 100%;
+         cursor: default;
+         background: #fff;
+      `};
 `;
 
 const ArtworkContainer = styled.div`
@@ -35,11 +37,13 @@ const ArtworkContainer = styled.div`
    text-align: center;
    transition: all 0.35s ease;
 
-   ${props => props.isFullscreen && css`
-      height: 40vh;
-      min-height: 8em;
-      width: 100%;
-   `}
+   ${props =>
+      props.isFullscreen &&
+      css`
+         height: 40vh;
+         min-height: 8em;
+         width: 100%;
+      `};
 `;
 
 const Artwork = styled.img`
@@ -163,18 +167,27 @@ class MiniControls extends Component {
    render() {
       const { navState, audioState } = this.props;
       const { isFullscreen } = navState;
-      const { hasAudio, isPlaying, playlist, currentIndex } = audioState;
+      const {
+         queue,
+         inQueue,
+         hasAudio,
+         isPlaying,
+         playlist,
+         currentIndex,
+      } = audioState;
       const path = 'images';
       const track =
-         hasAudio && currentIndex < playlist.length
-            ? playlist[currentIndex]
-            : {
-                 name: ' Music.js',
-                 artist: 'Tanner Villarete',
-                 album: 'My App',
-                 artwork: 'hi.com',
-                 track: '1',
-              };
+         queue.length && inQueue
+            ? queue[0]
+            : hasAudio && currentIndex < playlist.length
+               ? playlist[currentIndex]
+               : {
+                    name: ' Music.js',
+                    artist: 'Tanner Villarete',
+                    album: 'My App',
+                    artwork: 'hi.com',
+                    track: '1',
+                 };
       const artwork =
          hasAudio && currentIndex < playlist.length
             ? `http://tannerv.ddns.net:12345/SpotiFree/${track.artwork}`

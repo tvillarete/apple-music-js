@@ -40,12 +40,17 @@ const mapDispatchToProps = dispatch => {
 class TrackInfo extends Component {
    render() {
       const { audioState } = this.props;
-      const { hasAudio, playlist, currentIndex } = audioState;
-      const track = hasAudio ? playlist[currentIndex] : {
-         name: 'Apple Music.js',
-         artist: 'Tanner Villarete',
-         album: 'Cal Poly',
-      };
+      const { queue, inQueue, hasAudio, playlist, currentIndex } = audioState;
+      const track =
+         queue.length && inQueue
+            ? queue[0]
+            : hasAudio
+               ? playlist[currentIndex]
+               : {
+                    name: 'Apple Music.js',
+                    artist: 'Tanner Villarete',
+                    album: 'Cal Poly',
+                 };
 
       return (
          <Container>

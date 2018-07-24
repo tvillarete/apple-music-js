@@ -43,6 +43,8 @@ const MenuContainer = styled.div`
    border-radius: 20px;
 `;
 
+const Section = styled.div``;
+
 const mapStateToProps = state => {
    return {
       viewState: state.viewState,
@@ -58,21 +60,32 @@ const mapDispatchToProps = dispatch => {
 };
 
 class OptionsMenu extends Component {
+   handleClick = onClick => {
+      this.props.popPopup();
+      typeof onClick === 'function' && onClick();
+   }
+
    render() {
-      const { index, closing } = this.props;
+      const { index, closing, options } = this.props;
 
       return (
          <Container index={index}>
-            <Cover closing={closing} onClick={this.props.popPopup}/>
+            <Cover closing={closing} onClick={this.handleClick} />
             <MenuContainer closing={closing}>
-               <OptionsButton label="Cancel" onClick={this.props.popPopup} />
+               <Section>
+                  {options &&
+                     options.map(option => (
+                        <OptionsButton
+                           label={option.label}
+                           onClick={() => this.handleClick(option.onClick)}
+                        />
+                     ))}
+               </Section>
+               <OptionsButton label="Cancel" onClick={this.handleClick} />
             </MenuContainer>
          </Container>
       );
    }
 }
 
-export default connect(
-   mapStateToProps,
-   mapDispatchToProps,
-)(OptionsMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(OptionsMenu);

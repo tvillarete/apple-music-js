@@ -52,7 +52,6 @@ class RecentlyPlayed extends Component {
    render() {
       const { audioState } = this.props;
       const { recents } = audioState;
-      console.log(recents);
 
       return (
          <Container>

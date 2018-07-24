@@ -3,6 +3,9 @@ const initialState = {
    hasAudio: false,
    currentIndex: 0,
    playlist: [],
+   inQueue: false,
+   queue: [],
+   prevQueue: [],
    recents: localStorage.appleMusicRecents
       ? JSON.parse(localStorage.appleMusicRecents)
       : [],
@@ -38,21 +41,39 @@ const audioReducer = (state = initialState, action) => {
             isPlaying: false,
          };
       case 'NEXT_SONG':
+         const newQueue = [...state.queue.slice(1, state.queue.length)];
+
          return {
             ...state,
             hasAudio: state.currentIndex + 1 < state.playlist.length,
+            inQueue: state.queue.length,
+            queue: state.inQueue ? newQueue : state.queue,
             isPlaying:
                state.isPlaying &&
                state.currentIndex + 1 !== state.playlist.length,
-            currentIndex: state.currentIndex + 1,
+            currentIndex:
+               state.currentIndex +
+               (state.inQueue && state.queue.length ? 0 : 1),
          };
       case 'PREV_SONG':
          return {
             ...state,
+            inQueue: false,
+            queue: state.inQueue
+               ? [...state.queue.slice(1, state.queue.length)]
+               : state.queue,
             currentIndex:
                state.currentIndex > 0
                   ? state.currentIndex - 1
                   : state.currentIndex,
+         };
+      case 'ADD_TO_QUEUE':
+         return {
+            ...state,
+            hasAudio: true,
+            prevQueue: state.queue,
+            queue: [action.track, ...state.queue],
+            playlist: state.playlist,
          };
       case 'CHANGE_VOLUME':
          return {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { playSong } from '../../audio/actions';
+import { playSong, addToQueue } from '../../audio/actions';
 import { fetchAlbums, fetchAlbum } from '../../api/actions';
 import { pushView, pushPopup } from '../actions';
 import { Button, constants } from '../../toolbox';
@@ -84,10 +84,15 @@ class AlbumView extends Component {
       this.props.playSong({ playlist, index });
    };
 
-   setupOptionsMenu = () => {
+   setupOptionsMenu = track => {
       this.props.pushPopup({
          name: "Options",
-         props: {}
+         props: {
+            options: [{
+               label: 'Play Next',
+               onClick: () => this.props.addToQueue(track)
+            }],
+         }
       });
    }
 
@@ -151,7 +156,7 @@ class AlbumView extends Component {
                               item.artist === currentTrack.artist
                            }
                            OptionsMenu={true}
-                           onOptionsClick={this.setupOptionsMenu}
+                           onOptionsClick={() => this.setupOptionsMenu(item)}
                            onClick={() =>
                               this.playSong({ playlist: tracks, index })
                            }
@@ -178,6 +183,7 @@ const mapDispatchToProps = dispatch => {
       pushPopup: popup => dispatch(pushPopup(popup)),
       playSong: ({ playlist, index }) =>
          dispatch(playSong({ playlist, index })),
+      addToQueue: track => dispatch(addToQueue(track)),
       fetchAlbums: () => dispatch(fetchAlbums()),
       fetchAlbum: ({ album }) => dispatch(fetchAlbum({ album })),
    };

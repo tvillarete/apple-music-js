@@ -30,7 +30,7 @@ const CloseControls = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-   height: ${props => props.hidden ? '0' : '48px'};
+   height: ${props => (props.hidden ? '0' : '48px')};
    opacity: ${props => props.hidden && '0'};
    pointer-events: ${props => props.hidden && 'none'};
    transition: all 0.35s ease;
@@ -61,14 +61,14 @@ class Controls extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         volume: props.audioState.volume
-      }
+         volume: props.audioState.volume,
+      };
    }
 
    static getDerivedStateFromProps(nextProps, prevState) {
       return {
-         volume: nextProps.volume
-      }
+         volume: nextProps.volume,
+      };
    }
 
    playAudio() {
@@ -86,9 +86,9 @@ class Controls extends Component {
       this.props.nextSong();
    };
 
-   changeVolume = (val) => {
+   changeVolume = val => {
       console.log(val);
-   }
+   };
 
    componentDidUpdate(nextProps) {
       const { audioState, volume } = this.props;
@@ -108,8 +108,12 @@ class Controls extends Component {
    render() {
       const { navState, audioState } = this.props;
       const { isFullscreen } = navState;
-      const { playlist, currentIndex, volume } = audioState;
-      const track = !!playlist.length ? playlist[currentIndex] : null;
+      const { queue, inQueue, playlist, currentIndex, volume } = audioState;
+      const track = queue.length && inQueue
+         ? queue[0]
+         : !!playlist.length
+            ? playlist[currentIndex]
+            : null;
 
       return (
          <Container isFullscreen={isFullscreen}>
