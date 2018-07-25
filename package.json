@@ -19,5 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.5"
   }
 }
