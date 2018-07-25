@@ -114,6 +114,7 @@ class Controls extends Component {
          : !!playlist.length
             ? playlist[currentIndex]
             : null;
+            console.log(track);
 
       return (
          <Container isFullscreen={isFullscreen}>

@@ -6,6 +6,8 @@ const { color } = constants;
 
 const Container = styled.div`
    display: flex;
+   justify-content: ${props => props.center && 'center'};
+   justify-content: ${props => props.hasImage && 'space-between'};
    min-height: 64px;
    border-bottom: 1px solid ${color.gray[3]};
    padding: 0 16px;
@@ -21,6 +23,12 @@ const TextContainer = styled.div`
    align-items: center;
 `;
 
+const Icon = styled.img`
+   height: 30px;
+   width: auto;
+   margin: auto 0;
+`;
+
 const Label = styled.h2`
    margin: 0;
    font-size: 1.3rem;
@@ -28,16 +36,13 @@ const Label = styled.h2`
    font-weight: normal;
 `;
 
-const OptionsButton = ({
-   label,
-   icon,
-   onClick,
-}) => {
+const OptionsButton = ({ label, icon, image, center, onClick }) => {
    return (
-      <Container onClick={onClick}>
+      <Container hasImage={image} center={center} onClick={onClick}>
          <TextContainer>
             <Label>{label}</Label>
          </TextContainer>
+         {image && <Icon src={`images/${image}`} />}
       </Container>
    );
 };

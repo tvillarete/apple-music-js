@@ -63,7 +63,7 @@ class OptionsMenu extends Component {
    handleClick = onClick => {
       this.props.popPopup();
       typeof onClick === 'function' && onClick();
-   }
+   };
 
    render() {
       const { index, closing, options } = this.props;
@@ -76,12 +76,18 @@ class OptionsMenu extends Component {
                   {options &&
                      options.map(option => (
                         <OptionsButton
+                           key={`option-${option.label}`}
                            label={option.label}
+                           image={option.image}
                            onClick={() => this.handleClick(option.onClick)}
                         />
                      ))}
                </Section>
-               <OptionsButton label="Cancel" onClick={this.handleClick} />
+               <OptionsButton
+                  center={true}
+                  label="Cancel"
+                  onClick={this.handleClick}
+               />
             </MenuContainer>
          </Container>
       );

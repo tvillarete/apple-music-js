@@ -90,6 +90,7 @@ class AlbumView extends Component {
          props: {
             options: [{
                label: 'Play Next',
+               image: 'play_next.svg',
                onClick: () => this.props.addToQueue(track)
             }],
          }

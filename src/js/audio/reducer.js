@@ -33,7 +33,7 @@ const audioReducer = (state = initialState, action) => {
       case 'RESUME':
          return {
             ...state,
-            isPlaying: !!state.playlist.length,
+            isPlaying: !!state.playlist.length || !!state.queue.length,
          };
       case 'PAUSE':
          return {
@@ -50,7 +50,8 @@ const audioReducer = (state = initialState, action) => {
             queue: state.inQueue ? newQueue : state.queue,
             isPlaying:
                state.isPlaying &&
-               state.currentIndex + 1 !== state.playlist.length,
+               (state.currentIndex + 1 !== state.playlist.length &&
+                  state.queue.length),
             currentIndex:
                state.currentIndex +
                (state.inQueue && state.queue.length ? 0 : 1),
@@ -71,8 +72,15 @@ const audioReducer = (state = initialState, action) => {
          return {
             ...state,
             hasAudio: true,
+            inQueue: !state.playlist.length,
             prevQueue: state.queue,
-            queue: [action.track, ...state.queue],
+            queue: state.inQueue
+               ? [
+                    ...state.queue.slice(0, 1),
+                    action.track,
+                    ...state.queue.slice(2, state.length),
+                 ]
+               : [action.track, ...state.queue],
             playlist: state.playlist,
          };
       case 'CHANGE_VOLUME':
