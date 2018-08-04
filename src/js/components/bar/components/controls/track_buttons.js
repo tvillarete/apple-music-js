@@ -7,7 +7,7 @@ const Container = styled.div`
    display: flex;
    justify-content: space-around;
    align-items: center;
-   min-height: 20vh;
+   min-height: 14vh;
    margin-top: 16px;
 `;
 
@@ -79,10 +79,10 @@ class TrackButtons extends Component {
       return (
          <Container>
             <Svg src={`${path}/skip_back.svg`} onClick={this.prevSong} />
-            {!(hasAudio && isPlaying) && (
+            {!(!!hasAudio && !!isPlaying) && (
                <Svg src={`${path}/play.svg`} onClick={this.resume} />
             )}
-            {isPlaying && (
+            {!!isPlaying && (
                <Svg src={`${path}/pause.svg`} onClick={this.pause} />
             )}
             <Svg src={`${path}/skip_next.svg`} onClick={this.nextSong} />

@@ -20,7 +20,7 @@ const Container = styled.div`
    ${props =>
       props.isFullscreen &&
       css`
-         height: 30vh;
+         height: 40vh;
          border-left: 1px solid transparent;
          width: 100%;
          cursor: default;
@@ -40,7 +40,7 @@ const ArtworkContainer = styled.div`
    ${props =>
       props.isFullscreen &&
       css`
-         height: 40vh;
+         height: 46vh;
          min-height: 8em;
          width: 100%;
       `};
@@ -49,10 +49,10 @@ const ArtworkContainer = styled.div`
 const Artwork = styled.img`
    height: ${props => (props.isFullscreen ? '18em' : '50px')};
    width: auto;
-   max-height: ${props => (props.isFullscreen ? '80%' : '100%')};
+   max-height: ${props => (props.isFullscreen ? '90%' : '100%')};
    max-width: 100%;
    margin-top: ${props => props.isPlaying && '8px'};
-   transform: ${props => props.isPlaying && 'scale(1.2)'};
+   transform: ${props => props.isPlaying && 'scale(1.1)'};
    pointer-events: none;
    user-select: none;
    border-radius: ${props => props.isFullscreen && '4px'};
@@ -146,23 +146,6 @@ class MiniControls extends Component {
          this.props.nextSong();
       }
    };
-
-   componentDidMount() {
-      document.body.onkeypress = e => {
-         const { audioState } = this.props;
-         const { hasAudio, isPlaying } = audioState;
-
-         if (e.keyCode === 32) {
-            if (hasAudio && isPlaying) {
-               e.preventDefault();
-               this.pause(e);
-            } else if (hasAudio && !isPlaying) {
-               e.preventDefault();
-               this.resume(e);
-            }
-         }
-      };
-   }
 
    render() {
       const { navState, audioState } = this.props;

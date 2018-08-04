@@ -6,6 +6,10 @@ const initialState = {
    inQueue: false,
    queue: [],
    prevQueue: [],
+   time: {
+      current: null,
+      max: null
+   },
    recents: localStorage.appleMusicRecents
       ? JSON.parse(localStorage.appleMusicRecents)
       : [],
@@ -49,9 +53,9 @@ const audioReducer = (state = initialState, action) => {
             inQueue: state.queue.length,
             queue: state.inQueue ? newQueue : state.queue,
             isPlaying:
-               state.isPlaying &&
-               (state.currentIndex + 1 !== state.playlist.length &&
-                  state.queue.length),
+               !!state.isPlaying &&
+               (state.currentIndex + 1 !== state.playlist.length ||
+                  !!state.queue.length),
             currentIndex:
                state.currentIndex +
                (state.inQueue && state.queue.length ? 0 : 1),
@@ -83,6 +87,13 @@ const audioReducer = (state = initialState, action) => {
                : [action.track, ...state.queue],
             playlist: state.playlist,
          };
+      case 'UPDATE_TIME':
+         return {
+         ...state,
+         time: {
+            ...action.info
+         }
+      }
       case 'CHANGE_VOLUME':
          return {
             ...state,
