@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MiniControls from './mini_controls';
 import { toggleFullscreen } from '../../actions';
-import { nextSong, pause } from '../../../../audio/actions';
+import { nextSong, pause, updateTime } from '../../../../audio/actions';
 import TrackInfo from './track_info';
 import TrackButtons from './track_buttons';
 import VolumeSlider from './volume_slider';
+import Scrubber from './scrubber';
 
 const Container = styled.div`
    position: fixed;
@@ -40,6 +41,7 @@ const CloseControls = styled.div`
 const FullscreenControls = styled.div`
    opacity: ${props => props.hide && 0};
    transition: all 0.35s ease;
+   margin-top: 5vh;
 `;
 
 const mapStateToProps = state => {
@@ -54,6 +56,7 @@ const mapDispatchToProps = dispatch => {
       nextSong: () => dispatch(nextSong()),
       toggleFullscreen: () => dispatch(toggleFullscreen()),
       pause: () => dispatch(pause()),
+      updateTime: info => dispatch(updateTime(info)),
    };
 };
 
@@ -62,6 +65,7 @@ class Controls extends Component {
       super(props);
       this.state = {
          volume: props.audioState.volume,
+         duration: null,
       };
    }
 
@@ -71,15 +75,36 @@ class Controls extends Component {
       };
    }
 
-   playAudio() {
-      this.playPromise = this.audioElement.play();
-      this.playPromise.then(() => {
-         // TODO: Do something here
-      });
+   handlePlay = () => {
+      if (this.audio.paused) {
+         clearInterval(this.playInterval);
+         const playPromise = this.audio.play();
+         playPromise.then(() => {
+            this.createTimeInterval();
+         });
+      }
+   };
+
+   handleSliderChange = e => {
+      clearInterval(this.playInterval);
+      this.audio.currentTime = e.target.value;
+      this.createTimeInterval();
+   };
+
+   createTimeInterval() {
+      this.playInterval = setInterval(() => {
+         this.props.updateTime({
+            current: this.audio.currentTime,
+            max: this.audio.duration,
+         });
+      }, 1000);
    }
 
-   pauseAudio() {
-      this.audioElement.pause();
+   handlePause() {
+      if (!this.audio.paused) {
+         this.audio.pause();
+         clearInterval(this.playInterval);
+      }
    }
 
    nextSong = () => {
@@ -94,14 +119,14 @@ class Controls extends Component {
       const { audioState, volume } = this.props;
       const { isPlaying } = audioState;
 
-      if (this.audioElement && this.audioElement.volume !== volume) {
-         this.audioElement.volume = nextProps.audioState.volume;
+      if (this.audio && this.audio.volume !== volume) {
+         this.audio.volume = nextProps.audioState.volume;
       }
 
-      if (isPlaying && this.audioElement) {
-         this.playAudio();
-      } else if (!isPlaying && this.audioElement && this.audioElement.src) {
-         this.pauseAudio();
+      if (isPlaying && this.audio) {
+         this.handlePlay();
+      } else if (!isPlaying && this.audio && this.audio.src) {
+         this.handlePause();
       }
    }
 
@@ -109,12 +134,12 @@ class Controls extends Component {
       const { navState, audioState } = this.props;
       const { isFullscreen } = navState;
       const { queue, inQueue, playlist, currentIndex, volume } = audioState;
-      const track = queue.length && inQueue
-         ? queue[0]
-         : !!playlist.length
-            ? playlist[currentIndex]
-            : null;
-            console.log(track);
+      const track =
+         queue.length && inQueue
+            ? queue[0]
+            : !!playlist.length
+               ? playlist[currentIndex]
+               : null;
 
       return (
          <Container isFullscreen={isFullscreen}>
@@ -125,6 +150,7 @@ class Controls extends Component {
             </CloseControls>
             <MiniControls />
             <FullscreenControls hide={!isFullscreen}>
+               <Scrubber />
                <TrackInfo />
                <TrackButtons />
                <VolumeSlider />
@@ -132,7 +158,7 @@ class Controls extends Component {
             {track && (
                <audio
                   ref={audio => {
-                     this.audioElement = audio;
+                     this.audio = audio;
                   }}
                   volume={volume}
                   id="audio"
