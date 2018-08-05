@@ -1,4 +1,5 @@
 ![og](https://user-images.githubusercontent.com/21055469/43682115-2b5a1682-981e-11e8-973d-fe316aa3a49b.png)
+---
 Built by **Tanner Villarete** 
 Connect with me on [LinkedIn](linkedin.com/in/tvillarete)! I'll be graduating soon ;)
 
