@@ -125,7 +125,7 @@ class PlaylistView extends Component {
                },
                {
                   label: 'Add to Playlist',
-                  image: 'play_next.svg',
+                  image: 'add_to_playlist.svg',
                   onClick: () =>
                      this.props.pushPopup({
                         name: 'Playlist Selector',
