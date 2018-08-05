@@ -93,10 +93,12 @@ class Controls extends Component {
 
    createTimeInterval() {
       this.playInterval = setInterval(() => {
-         this.props.updateTime({
-            current: this.audio.currentTime,
-            max: this.audio.duration,
-         });
+         if (this.audio) {
+            this.props.updateTime({
+               current: this.audio.currentTime,
+               max: this.audio.duration,
+            });
+         }
       }, 1000);
    }
 
