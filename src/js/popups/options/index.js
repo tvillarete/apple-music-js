@@ -62,7 +62,9 @@ const mapDispatchToProps = dispatch => {
 class OptionsMenu extends Component {
    handleClick = onClick => {
       this.props.popPopup();
-      typeof onClick === 'function' && onClick();
+      setTimeout(() => {
+         typeof onClick === 'function' && onClick();
+      }, 250);
    };
 
    render() {

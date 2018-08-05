@@ -30,8 +30,8 @@ const apiReducer = (state = initialState, action) => {
                },
                albumData: {
                   ...state.data.albumData,
-                  ...action.albumData
-               }
+                  ...action.albumData,
+               },
             },
          };
       case 'FETCH_ALBUM_LIST_SUCCESS':
@@ -41,9 +41,9 @@ const apiReducer = (state = initialState, action) => {
                ...state.data,
                albumData: {
                   ...state.data.albumData,
-                  ...action.albumData
+                  ...action.albumData,
                },
-               albums: action.albums
+               albums: action.albums,
             },
          };
       case 'FETCH_ALBUM_SUCCESS':
@@ -53,8 +53,8 @@ const apiReducer = (state = initialState, action) => {
                ...state.data,
                albumData: {
                   ...state.data.albumData,
-                  [action.album]: action.tracks
-               }
+                  [action.album]: action.tracks,
+               },
             },
          };
       case 'FETCH_PLAYLIST_LIST_SUCCESS':
@@ -62,7 +62,7 @@ const apiReducer = (state = initialState, action) => {
             ...state,
             data: {
                ...state.data,
-               playlists: action.playlists
+               playlists: action.playlists,
             },
          };
       case 'CREATE_PLAYLIST':
@@ -70,8 +70,13 @@ const apiReducer = (state = initialState, action) => {
             ...state,
             data: {
                ...state.data,
-               playlists: action.playlists
+               playlists: action.playlists,
             },
+         };
+      case 'UPDATE_PLAYLIST':
+         return {
+            ...state,
+            playlists: action.playlists,
          };
       default:
          return state;

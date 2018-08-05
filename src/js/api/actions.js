@@ -113,3 +113,73 @@ export const createPlaylist = playlist => {
       });
    };
 };
+
+export const addToPlaylist = (track, playlist) => {
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists;
+      playlists = playlists ? JSON.parse(playlists) : playlists;
+
+      // Add track to playlist
+      playlist = {
+         ...playlist,
+         tracks: [...playlist.tracks, track],
+      };
+
+      // Update playlist in playlist list
+      playlists = {
+         ...playlists,
+         [playlist.title]: playlist,
+      };
+
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'UPDATE_PLAYLIST',
+         playlists,
+      });
+   };
+};
+
+export const deletePlaylist = playlist => {
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists;
+      playlists = playlists ? JSON.parse(playlists) : playlists;
+
+      delete playlists[playlist.name];
+
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'UPDATE_PLAYLIST',
+         playlists,
+      });
+   };
+};
+
+export const removeFromPlaylist = (index, playlist) => {
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists;
+      playlists = playlists ? JSON.parse(playlists) : playlists;
+
+      playlist = {
+         ...playlist,
+         tracks: [
+            ...playlist.tracks.slice(0, index),
+            ...playlist.tracks.slice(index + 1),
+         ],
+      };
+
+      // Update playlist in playlist list
+      playlists = {
+         ...playlists,
+         [playlist.title]: playlist,
+      };
+
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'UPDATE_PLAYLIST',
+         playlists,
+      });
+   };
+};

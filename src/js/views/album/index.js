@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { playSong, addToQueue } from '../../audio/actions';
-import { fetchAlbums, fetchAlbum } from '../../api/actions';
+import { fetchAlbums, fetchAlbum, addToPlaylist } from '../../api/actions';
 import { pushView, pushPopup } from '../actions';
 import { Button, constants } from '../../toolbox';
 
@@ -79,6 +79,28 @@ const VisibleDesktop = styled.div`
    }
 `;
 
+const mapStateToProps = state => {
+   return {
+      viewState: state.viewState,
+      apiState: state.apiState,
+      audioState: state.audioState,
+   };
+};
+
+const mapDispatchToProps = dispatch => {
+   return {
+      pushView: view => dispatch(pushView(view)),
+      pushPopup: popup => dispatch(pushPopup(popup)),
+      playSong: ({ playlist, index }) =>
+         dispatch(playSong({ playlist, index })),
+      addToQueue: track => dispatch(addToQueue(track)),
+      addToPlaylist: (track, playlist) =>
+         dispatch(addToPlaylist(track, playlist)),
+      fetchAlbums: () => dispatch(fetchAlbums()),
+      fetchAlbum: ({ album }) => dispatch(fetchAlbum({ album })),
+   };
+};
+
 class AlbumView extends Component {
    playSong = ({ playlist, index }) => {
       this.props.playSong({ playlist, index });
@@ -86,16 +108,30 @@ class AlbumView extends Component {
 
    setupOptionsMenu = track => {
       this.props.pushPopup({
-         name: "Options",
+         name: 'Options',
          props: {
-            options: [{
-               label: 'Play Next',
-               image: 'play_next.svg',
-               onClick: () => this.props.addToQueue(track)
-            }],
-         }
+            options: [
+               {
+                  label: 'Play Next',
+                  image: 'play_next.svg',
+                  onClick: () => this.props.addToQueue(track),
+               },
+               {
+                  label: 'Add to Playlist',
+                  image: 'play_next.svg',
+                  onClick: () =>
+                     this.props.pushPopup({
+                        name: 'Playlist Selector',
+                        props: {
+                           onSelect: playlist =>
+                              this.props.addToPlaylist(track, playlist),
+                        },
+                     }),
+               },
+            ],
+         },
       });
-   }
+   };
 
    componentDidMount() {
       const { album, apiState } = this.props;
@@ -170,27 +206,4 @@ class AlbumView extends Component {
    }
 }
 
-const mapStateToProps = state => {
-   return {
-      viewState: state.viewState,
-      apiState: state.apiState,
-      audioState: state.audioState,
-   };
-};
-
-const mapDispatchToProps = dispatch => {
-   return {
-      pushView: view => dispatch(pushView(view)),
-      pushPopup: popup => dispatch(pushPopup(popup)),
-      playSong: ({ playlist, index }) =>
-         dispatch(playSong({ playlist, index })),
-      addToQueue: track => dispatch(addToQueue(track)),
-      fetchAlbums: () => dispatch(fetchAlbums()),
-      fetchAlbum: ({ album }) => dispatch(fetchAlbum({ album })),
-   };
-};
-
-export default connect(
-   mapStateToProps,
-   mapDispatchToProps,
-)(AlbumView);
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumView);
