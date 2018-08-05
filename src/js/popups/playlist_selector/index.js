@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { constants, PlaylistButton } from '../../toolbox';
 import { fetchPlaylists } from '../../api/actions';
-import { popPopup } from '../../views/actions';
+import { popPopup, pushPopup } from '../../views/actions';
 import Header from '../components/header';
 
 const { color, animation } = constants;
@@ -47,6 +47,7 @@ const mapDispatchToProps = dispatch => {
    return {
       fetchPlaylists: () => dispatch(fetchPlaylists()),
       popPopup: () => dispatch(popPopup()),
+      pushPopup: popup => dispatch(pushPopup(popup)),
    };
 };
 
@@ -54,6 +55,13 @@ class PlaylistSelector extends Component {
    selectPlaylist = playlist => {
       this.props.onSelect(playlist);
       this.props.popPopup();
+   };
+
+   newPlaylist = () => {
+      this.props.pushPopup({
+         name: 'Playlist Creator',
+         props: {},
+      });
    };
 
    getPlaylistButtons = () => {
@@ -85,9 +93,18 @@ class PlaylistSelector extends Component {
          <Container index={index} closing={closing}>
             <Header
                left={<Button onClick={this.props.popPopup}>Cancel</Button>}
-               center={<Title>Add to Playlist</Title>}
+               center={<Title>Add to a Playlist</Title>}
             />
-            <ButtonContainer>{this.getPlaylistButtons()}</ButtonContainer>
+            <ButtonContainer>
+               <PlaylistButton
+                  key="playlist-selector-new-playlist-button"
+                  title="New Playlist..."
+                  img="images/playlist_add.jpg"
+                  color="red"
+                  onClick={this.newPlaylist}
+               />
+               {this.getPlaylistButtons()}
+            </ButtonContainer>
          </Container>
       );
    }

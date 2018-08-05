@@ -152,7 +152,8 @@ class PlaylistView extends Component {
    render() {
       const { playlist, apiState } = this.props;
       const { playlists, currentTrack } = apiState.data;
-      const { tracks, img, description, title } = playlists[playlist.title];
+      let { tracks, img, description, title } = playlists[playlist.title];
+      img = img || 'images/music.jpg';
 
       return (
          <Container>
