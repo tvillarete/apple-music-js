@@ -115,7 +115,6 @@ export const createPlaylist = playlist => {
 };
 
 export const addToPlaylist = (track, playlist) => {
-   console.log(track, playlist);
    return dispatch => {
       let playlists = localStorage.appleMusicPlaylists;
       playlists = playlists ? JSON.parse(playlists) : playlists;
@@ -123,20 +122,64 @@ export const addToPlaylist = (track, playlist) => {
       // Add track to playlist
       playlist = {
          ...playlist,
-         tracks: [...playlist.tracks, track]
+         tracks: [...playlist.tracks, track],
       };
 
       // Update playlist in playlist list
       playlists = {
          ...playlists,
-         [playlist.title]: playlist
-      }
+         [playlist.title]: playlist,
+      };
 
       localStorage.appleMusicPlaylists = JSON.stringify(playlists);
 
       dispatch({
-         type: 'ADD_TO_PLAYLIST',
-         playlists
+         type: 'UPDATE_PLAYLIST',
+         playlists,
+      });
+   };
+};
+
+export const deletePlaylist = playlist => {
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists;
+      playlists = playlists ? JSON.parse(playlists) : playlists;
+
+      delete playlists[playlist.name];
+
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'UPDATE_PLAYLIST',
+         playlists,
+      });
+   };
+};
+
+export const removeFromPlaylist = (index, playlist) => {
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists;
+      playlists = playlists ? JSON.parse(playlists) : playlists;
+
+      playlist = {
+         ...playlist,
+         tracks: [
+            ...playlist.tracks.slice(0, index),
+            ...playlist.tracks.slice(index + 1),
+         ],
+      };
+
+      // Update playlist in playlist list
+      playlists = {
+         ...playlists,
+         [playlist.title]: playlist,
+      };
+
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'UPDATE_PLAYLIST',
+         playlists,
       });
    };
 };

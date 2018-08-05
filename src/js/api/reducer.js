@@ -73,7 +73,7 @@ const apiReducer = (state = initialState, action) => {
                playlists: action.playlists,
             },
          };
-      case 'ADD_TO_PLAYLIST':
+      case 'UPDATE_PLAYLIST':
          return {
             ...state,
             playlists: action.playlists,

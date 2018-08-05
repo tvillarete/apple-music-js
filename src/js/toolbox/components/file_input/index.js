@@ -48,10 +48,6 @@ class FileInput extends Component {
    };
 
    sendImage = img => {
-		if (!img || img.size > 100000) {
-         alert("That image is too large! Try to get one that's 200x200px");
-         return;
-      }
       this.base64Encode(img);
       this.setState({ img: window.URL.createObjectURL(img) });
    };

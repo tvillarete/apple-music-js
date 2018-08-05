@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { playSong, addToQueue } from '../../audio/actions';
-import { fetchAlbum, addToPlaylist } from '../../api/actions';
+import {
+   fetchPlaylists,
+   addToPlaylist,
+   removeFromPlaylist,
+} from '../../api/actions';
 import { pushView, pushPopup } from '../actions';
 import { Button, constants } from '../../toolbox';
 
@@ -95,8 +99,10 @@ const mapDispatchToProps = dispatch => {
       addToPlaylist: (track, playlist) =>
          dispatch(addToPlaylist(track, playlist)),
       addToQueue: track => dispatch(addToQueue(track)),
-      fetchAlbum: ({ album }) => dispatch(fetchAlbum({ album })),
       pushPopup: popup => dispatch(pushPopup(popup)),
+      removeFromPlaylist: (track, index) =>
+         dispatch(removeFromPlaylist(track, index)),
+      fetchPlaylists: () => dispatch(fetchPlaylists()),
    };
 };
 
@@ -105,7 +111,9 @@ class PlaylistView extends Component {
       this.props.playSong({ playlist, index });
    };
 
-   setupOptionsMenu = track => {
+   setupOptionsMenu = (track, index) => {
+      const { playlist } = this.props;
+
       this.props.pushPopup({
          name: 'Options',
          props: {
@@ -126,19 +134,28 @@ class PlaylistView extends Component {
                               this.props.addToPlaylist(track, playlist),
                         },
                      }),
+               }, {
+                  label: 'Delete from Playlist',
+                  image: 'trash.svg',
+                  onClick: () =>
+                     this.props.removeFromPlaylist(index, playlist),
                },
             ],
          },
       });
    };
 
+   componentDidMount() {
+      this.props.fetchPlaylists();
+   }
+
    render() {
       const { playlist, apiState } = this.props;
-      const { tracks, img, description, title } = playlist;
-      const { currentTrack } = apiState.data;
+      const { playlists, currentTrack } = apiState.data;
+      const { tracks, img, description, title } = playlists[playlist.title];
 
       return (
-        <Container>
+         <Container>
             <MobileHeader>
                <ArtworkContainer>
                   <Artwork src={img} />
@@ -162,16 +179,18 @@ class PlaylistView extends Component {
                   tracks.map((item, index) => {
                      return (
                         <Button
-                           key={item.name}
+                           key={`playlist-${item.name}-${index}`}
                            label={item.name}
+                           sublabel={item.artist}
                            isPlaying={
                               currentTrack &&
                               item.name === currentTrack.name &&
-                              item.album === currentTrack.album &&
                               item.artist === currentTrack.artist
                            }
                            OptionsMenu={true}
-                           onOptionsClick={() => this.setupOptionsMenu(item)}
+                           onOptionsClick={() =>
+                              this.setupOptionsMenu(item, index)
+                           }
                            onClick={() =>
                               this.playSong({ playlist: tracks, index })
                            }
@@ -180,7 +199,6 @@ class PlaylistView extends Component {
                   })}
             </ButtonContainer>
          </Container>
-
       );
    }
 }
