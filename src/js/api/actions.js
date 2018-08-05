@@ -113,3 +113,30 @@ export const createPlaylist = playlist => {
       });
    };
 };
+
+export const addToPlaylist = (track, playlist) => {
+   console.log(track, playlist);
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists;
+      playlists = playlists ? JSON.parse(playlists) : playlists;
+
+      // Add track to playlist
+      playlist = {
+         ...playlist,
+         tracks: [...playlist.tracks, track]
+      };
+
+      // Update playlist in playlist list
+      playlists = {
+         ...playlists,
+         [playlist.title]: playlist
+      }
+
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'ADD_TO_PLAYLIST',
+         playlists
+      });
+   };
+};
