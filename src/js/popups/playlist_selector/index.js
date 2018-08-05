@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { constants, PlaylistButton } from '../../toolbox';
-import { fetchPlaylists, createPlaylist } from '../../api/actions';
-import { pushView, popPopup } from '../../views/actions';
+import { fetchPlaylists } from '../../api/actions';
+import { popPopup } from '../../views/actions';
 import Header from '../components/header';
 
 const { color, animation } = constants;
@@ -31,37 +31,6 @@ const Button = styled.h3`
 
 const Title = styled.h3`
    margin: 0;
-`;
-
-const Section = styled.div`
-   display: flex;
-   padding: 0 16px;
-`;
-
-const TitleInput = styled.textarea`
-   margin-left: 16px;
-   -webkit-appearance: none;
-   font-size: 24px;
-   border: none;
-   outline: none;
-   flex: 1;
-   resize: none;
-   caret-color: ${color.red[4]};
-   font-family: 'SF Pro Display';
-`;
-
-const DescriptionInput = styled.textarea`
-   margin: 16px 0 16px 16px;
-   -webkit-appearance: none;
-   font-size: 24px;
-   border: none;
-   outline: none;
-   flex: 1;
-   resize: none;
-   caret-color: ${color.red[4]};
-   border-top: 1px solid ${color.gray[3]};
-   border-bottom: 1px solid ${color.gray[3]};
-   font-family: 'SF Pro Display';
 `;
 
 const ButtonContainer = styled.div`
