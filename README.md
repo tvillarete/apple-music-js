@@ -2,6 +2,8 @@
 ---
 Built by **Tanner Villarete** 
 
+View [Demo](http://tannerv.com/music)
+
 Connect with me on [LinkedIn](https://linkedin.com/in/tvillarete)! I'll be graduating soon ;)
 
 # How far can JavaScript take us?
