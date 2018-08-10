@@ -140,22 +140,6 @@ export const addToPlaylist = (track, playlist) => {
    };
 };
 
-export const deletePlaylist = playlist => {
-   return dispatch => {
-      let playlists = localStorage.appleMusicPlaylists;
-      playlists = playlists ? JSON.parse(playlists) : playlists;
-
-      delete playlists[playlist.name];
-
-      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
-
-      dispatch({
-         type: 'UPDATE_PLAYLIST',
-         playlists,
-      });
-   };
-};
-
 export const removeFromPlaylist = (index, playlist) => {
    return dispatch => {
       let playlists = localStorage.appleMusicPlaylists;
@@ -174,6 +158,22 @@ export const removeFromPlaylist = (index, playlist) => {
          ...playlists,
          [playlist.title]: playlist,
       };
+
+      localStorage.appleMusicPlaylists = JSON.stringify(playlists);
+
+      dispatch({
+         type: 'UPDATE_PLAYLIST',
+         playlists,
+      });
+   };
+};
+
+export const deletePlaylist = playlist => {
+   return dispatch => {
+      let playlists = localStorage.appleMusicPlaylists;
+      playlists = playlists ? JSON.parse(playlists) : playlists;
+
+      delete playlists[playlist.title];
 
       localStorage.appleMusicPlaylists = JSON.stringify(playlists);
 

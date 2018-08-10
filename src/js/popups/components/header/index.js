@@ -6,6 +6,7 @@ const Container = styled.div`
    display: flex;
    height: 48px;
    padding: 0 16px;
+   background: ${props => props.color};
 `;
 
 const Section = styled.div`
@@ -22,9 +23,9 @@ const Section = styled.div`
    }
 `;
 
-const Header = ({ left, center, right }) => {
+const Header = ({ left, center, right, color }) => {
    return (
-      <Container>
+      <Container color={color || 'white'}>
          <Section>{left}</Section>
          <Section>{center}</Section>
          <Section>{right}</Section>

@@ -26,6 +26,7 @@ const Cover = styled.div`
    bottom: 0;
    left: 0;
    right: 0;
+   cursor: pointer;
    background: ${color.grayAlpha[5]};
    animation: ${props => (props.closing ? animation.fadeOut : animation.fadeIn)}
       0.3s ease-in-out;
@@ -36,14 +37,25 @@ const MenuContainer = styled.div`
    width: 90%;
    max-width: 30em;
    margin-bottom: 16px;
-   background: white;
    animation: ${props => (props.closing ? slideOutToBottom : slideInFromBottom)}
       0.3s ease-in-out;
    overflow: hidden;
-   border-radius: 20px;
 `;
 
-const Section = styled.div``;
+const Section = styled.div`
+   margin: 12px 0;
+   background: white;
+   border-radius: 20px;
+   overflow: hidden;
+
+   &:first-child {
+      margin-top: 0;
+   }
+
+   &:last-child {
+      margin-bottom: 0;
+   }
+`;
 
 const mapStateToProps = state => {
    return {
@@ -85,11 +97,14 @@ class OptionsMenu extends Component {
                         />
                      ))}
                </Section>
-               <OptionsButton
-                  center={true}
-                  label="Cancel"
-                  onClick={this.handleClick}
-               />
+               <Section>
+                  <OptionsButton
+                     bold
+                     center={true}
+                     label="Cancel"
+                     onClick={this.handleClick}
+                  />
+               </Section>
             </MenuContainer>
          </Container>
       );

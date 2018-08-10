@@ -117,7 +117,7 @@ class AlbumView extends Component {
                   onClick: () => this.props.addToQueue(track),
                },
                {
-                  label: 'Add to Playlist',
+                  label: 'Add to a Playlist',
                   image: 'add_to_playlist.svg',
                   onClick: () =>
                      this.props.pushPopup({

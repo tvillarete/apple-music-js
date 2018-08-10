@@ -52,11 +52,6 @@ const OptionsContainer = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-
-   svg {
-      height: 20px;
-      width: 20px;
-   }
 `;
 
 const ChevronContainer = styled.div`

@@ -5,8 +5,8 @@ import feather from 'feather-icons';
 
 const SvgContainer = styled.span`
    display: inline-block;
-   width: ${props => props.size};
-   height: ${props => props.size};
+   width: ${props => props.size}px;
+   height: ${props => props.size}px;
    color: ${props => props.color};
    stroke-width: ${props => props.strokeWidth};
 `;

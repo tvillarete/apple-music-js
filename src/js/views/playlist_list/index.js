@@ -11,6 +11,21 @@ const Container = styled.div`
 
 const ButtonContainer = styled.div``;
 
+const mapStateToProps = state => {
+   return {
+      viewState: state.viewState,
+      apiState: state.apiState,
+   };
+};
+
+const mapDispatchToProps = dispatch => {
+   return {
+      pushView: view => dispatch(pushView(view)),
+      pushPopup: popup => dispatch(pushPopup(popup)),
+      fetchPlaylists: () => dispatch(fetchPlaylists()),
+   };
+};
+
 class PlaylistListView extends Component {
    viewPlaylist = ({ playlist, index }) => {
       this.props.pushView({
@@ -36,7 +51,9 @@ class PlaylistListView extends Component {
    }
 
    getPlaylistButtons = () => {
-      const { playlists } = this.props.apiState.data;
+      const playlists = localStorage.appleMusicPlaylists
+         ? JSON.parse(localStorage.appleMusicPlaylists)
+         : {};
       const playlistButtons = [];
 
       for (let [key, playlist] of Object.entries(playlists)) {
@@ -70,20 +87,5 @@ class PlaylistListView extends Component {
       );
    }
 }
-
-const mapStateToProps = state => {
-   return {
-      viewState: state.viewState,
-      apiState: state.apiState,
-   };
-};
-
-const mapDispatchToProps = dispatch => {
-   return {
-      pushView: view => dispatch(pushView(view)),
-      pushPopup: popup => dispatch(pushPopup(popup)),
-      fetchPlaylists: () => dispatch(fetchPlaylists()),
-   };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaylistListView);

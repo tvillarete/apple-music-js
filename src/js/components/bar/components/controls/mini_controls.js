@@ -87,11 +87,6 @@ const ButtonContainer = styled.div`
    align-items: center;
    justify-content: flex-end;
    padding-right: 16px;
-
-   svg {
-      height: 32px;
-      width: 32px;
-   }
 `;
 
 const Svg = styled.img`
@@ -188,7 +183,7 @@ class MiniControls extends Component {
             </ArtworkContainer>
             <InfoContainer isFullscreen={isFullscreen}>
                <SongTitle>{track.name}</SongTitle>
-               <ButtonContainer>
+               <ButtonContainer size={32}>
                   {!(hasAudio && isPlaying) && (
                      <Svg src={`${path}/play.svg`} onClick={this.resume} />
                   )}

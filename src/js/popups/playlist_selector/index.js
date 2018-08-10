@@ -29,8 +29,11 @@ const Button = styled.h3`
    user-select: none;
 `;
 
-const Title = styled.h3`
-   margin: 0;
+const Title = styled.h1`
+   margin: 0 0 16px 0;
+   padding: 0 0 16px 16px;
+   border-bottom: 1px solid ${color.gray[2]};
+   background: ${color.gray[1]};
 `;
 
 const ButtonContainer = styled.div`
@@ -92,9 +95,10 @@ class PlaylistSelector extends Component {
       return (
          <Container index={index} closing={closing}>
             <Header
-               left={<Button onClick={this.props.popPopup}>Cancel</Button>}
-               center={<Title>Add to a Playlist</Title>}
+               color={color.gray[1]}
+               right={<Button onClick={this.props.popPopup}>Cancel</Button>}
             />
+            <Title>Add to a Playlist</Title>
             <ButtonContainer>
                <PlaylistButton
                   key="playlist-selector-new-playlist-button"

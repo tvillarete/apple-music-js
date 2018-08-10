@@ -25,7 +25,7 @@ const TextContainer = styled.div`
 
 const Icon = styled.img`
    height: 30px;
-   width: auto;
+   width: 40px;
    margin: auto 0;
 `;
 
@@ -33,14 +33,14 @@ const Label = styled.h2`
    margin: 0;
    font-size: 1.3rem;
    color: ${color.red[4]};
-   font-weight: normal;
+   font-weight: ${props => props.bold ? 'bold' : 'normal'};
 `;
 
-const OptionsButton = ({ label, icon, image, center, onClick }) => {
+const OptionsButton = ({ label, icon, image, center, bold, onClick }) => {
    return (
       <Container hasImage={image} center={center} onClick={onClick}>
          <TextContainer>
-            <Label>{label}</Label>
+            <Label bold={bold}>{label}</Label>
          </TextContainer>
          {image && <Icon src={`images/${image}`} />}
       </Container>

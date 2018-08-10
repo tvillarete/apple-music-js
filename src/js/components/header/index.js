@@ -15,7 +15,7 @@ const Container = styled.div`
    right: 0;
    max-width: 72em;
    margin: 0 auto;
-   height: ${props => props.hideTitle ? '48px' : '86px'};
+   height: ${props => (props.hideTitle ? '48px' : '86px')};
    background: white;
    overflow: hidden;
    transition: all 0.3s ease-in-out;
@@ -24,18 +24,12 @@ const Container = styled.div`
 const ChevronContainer = styled.div`
    animation: scale 0.25s;
    cursor: pointer;
-
+   width: 40px;
 
    &:active {
       svg: {
          color: ${props => props.isBackButton && color.redAlpha[2]};
       }
-   }
-
-   svg {
-      color: ${color.red[4]};
-      height: 40px;
-      width: 30px;
    }
 
    @keyframes scale {
@@ -53,7 +47,7 @@ const TitleContainer = styled.div`
          ? '9px'
          : '48px'};
    margin-left: ${props =>
-      props.isHidden && !props.goingBack ? '-100%' : '24px'};
+      props.isHidden && !props.goingBack ? '-100%' : '30px'};
    margin-left: ${props => props.isTitle && props.goingBack && '100vw'};
    animation: ${props => (props.isLeaving ? 'slideOut' : 'slideIn')} 0.3s
       ease-in-out;
@@ -75,7 +69,6 @@ const TitleContainer = styled.div`
             : null};
       opacity: ${props => (props.isHidden && !props.goingBack ? 0 : 1)};
       cursor: ${props => props.isBackButton && 'pointer'};
-
 
       &:active {
          color: ${props => props.isBackButton && color.redAlpha[2]};
@@ -118,39 +111,45 @@ const TitleStack = connect(mapStateToProps)(({ stack, goingBack, onClick }) => {
       const isBackButton = index === stack.length - 2;
       const isTitle = index === stack.length - 1;
 
-      return index >= stack.length - 3 && (
-         <TitleContainer
-            key={`title-${name}`}
-            isHidden={isHidden}
-            isBackButton={isBackButton}
-            goingBack={goingBack}
-            isTitle={isTitle}>
-            {!props.hideTitle && (
-               <Title onClick={() => (isBackButton ? onClick() : null)}>
-                  {title || name}
-               </Title>
-            )}
-         </TitleContainer>
+      return (
+         index >= stack.length - 3 && (
+            <TitleContainer
+               key={`title-${name}`}
+               isHidden={isHidden}
+               isBackButton={isBackButton}
+               goingBack={goingBack}
+               isTitle={isTitle}>
+               {!props.hideTitle && (
+                  <Title onClick={() => (isBackButton ? onClick() : null)}>
+                     {title || name}
+                  </Title>
+               )}
+            </TitleContainer>
+         )
       );
    });
 });
 
-const BackButton = connect(
-   mapStateToProps,
-   mapDispatchToProps,
-)(({ viewState, popView }) => {
-   const { stack } = viewState;
+const BackButton = connect(mapStateToProps, mapDispatchToProps)(
+   ({ viewState, popView }) => {
+      const { stack } = viewState;
 
-   if (stack.length <= 1) {
-      return null;
-   }
+      if (stack.length <= 1) {
+         return null;
+      }
 
-   return (
-      <ChevronContainer>
-         <Icon name="chevron-left" onClick={popView} />
-      </ChevronContainer>
-   );
-});
+      return (
+         <ChevronContainer>
+            <Icon
+               name="chevron-left"
+               size={38}
+               color={color.red[4]}
+               onClick={popView}
+            />
+         </ChevronContainer>
+      );
+   },
+);
 
 class Header extends Component {
    constructor(props) {
@@ -197,7 +196,7 @@ class Header extends Component {
 
    render() {
       const { stack, goingBack } = this.state;
-      const currentView = stack[stack.length-1];
+      const currentView = stack[stack.length - 1];
       const { hideTitle } = currentView.props;
 
       return (
@@ -213,7 +212,4 @@ class Header extends Component {
    }
 }
 
-export default connect(
-   mapStateToProps,
-   mapDispatchToProps,
-)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
