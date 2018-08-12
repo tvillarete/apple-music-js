@@ -5,8 +5,14 @@ Built by **Tanner Villarete**
 Connect with me on [LinkedIn](https://linkedin.com/in/tvillarete)! I'll be graduating soon ;)
 
 # How far can JavaScript take us?
+
 Turns out, pretty dang far. This web app was my attempt at mimicking Apple's iOS music app, and I think I've come pretty close! 
 
+---
+![screen shot 2018-08-12 at 9 49 19 am](https://user-images.githubusercontent.com/21055469/44004287-0a541a80-9e15-11e8-93e8-ff3606dd4db1.png)
+---
+![screen shot 2018-08-12 at 9 49 27 am](https://user-images.githubusercontent.com/21055469/44004289-0df0907e-9e15-11e8-9bcf-ec5e62bcd70a.png)
+---
 I'm in my fourth year of college, and it's been super cool to see how much I've improved and continue to improve all aspects of programming. 
 
 ## Backend API
