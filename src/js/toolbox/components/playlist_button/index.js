@@ -8,6 +8,7 @@ const { color } = constants;
 const Container = styled.div`
    display: flex;
    height: 112px;
+   cursor: pointer;
 
    &:active {
       background: ${color.gray[2]};

@@ -9,7 +9,7 @@ import {
    deletePlaylist,
 } from '../../api/actions';
 import { pushView, popView, pushPopup } from '../actions';
-import { Button, Icon, constants } from '../../toolbox';
+import { Button, constants } from '../../toolbox';
 
 const { color } = constants;
 const breakpointSm = `@media screen and (max-width: 750px)`;
@@ -87,11 +87,16 @@ const ActionContainer = styled.div`
    flex-direction: column;
    justify-content: center;
    align-items: flex-end;
-   padding: 0 12px;
+   padding: 0 9px;
 
-   svg {
+   svg, img {
       cursor: pointer;
    }
+`;
+
+const Svg = styled.img`
+   height: ${props => props.size || 30}px;
+   width: ${props => props.size || 30}px;
 `;
 
 const VisibleDesktop = styled.div`
@@ -228,8 +233,8 @@ class PlaylistView extends Component {
                   <Title>{title}</Title>
                   <Subtitle>{description}</Subtitle>
                   <ActionContainer>
-                     <Icon
-                        name="more-horizontal"
+                     <Svg
+                        src="images/more_circle.svg"
                         onClick={this.setupPlaylistOptionsMenu}
                      />
                   </ActionContainer>
@@ -246,8 +251,8 @@ class PlaylistView extends Component {
                   <Title>{title}</Title>
                   <Subtitle>{description}</Subtitle>
                   <ActionContainer>
-                     <Icon
-                        name="more-horizontal"
+                     <Svg
+                        src="images/more_circle.svg"
                         onClick={this.setupPlaylistOptionsMenu}
                      />
                      </ActionContainer>

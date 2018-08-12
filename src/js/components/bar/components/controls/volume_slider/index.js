@@ -10,6 +10,8 @@ const { color } = constants;
 
 const Container = styled.div`
    height: 48px;
+   width: 90%;
+   margin: auto;
    display: flex;
 
    .rangeslider-horizontal.time-slider,
