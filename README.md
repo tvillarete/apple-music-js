@@ -8,6 +8,8 @@ Connect with me on [LinkedIn](https://linkedin.com/in/tvillarete)! I'll be gradu
 
 Turns out, pretty dang far. This web app was my attempt at mimicking Apple's iOS music app, and I think I've come pretty close! 
 
+Check out a live demo [here](http://tannerv.com/music)
+
 ---
 ![screen shot 2018-08-12 at 9 49 19 am](https://user-images.githubusercontent.com/21055469/44004287-0a541a80-9e15-11e8-93e8-ff3606dd4db1.png)
 ---
