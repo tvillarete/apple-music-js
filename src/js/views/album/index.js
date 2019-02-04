@@ -18,9 +18,14 @@ const Container = styled.div`
 `;
 
 const ArtworkContainer = styled.div`
+   position: relative;
+   height: 300px;
+   width: 300px;
    margin-right: 32px;
 
    ${breakpointSm} {
+      height: auto;
+      width: auto;
       display: block;
       margin-right: 8px;
       height: 100%;
@@ -29,10 +34,24 @@ const ArtworkContainer = styled.div`
 
 const Artwork = styled.img`
    border: 1px solid ${color.gray[2]};
+   box-sizing: border-box;
    border-radius: 6px;
    pointer-events: none;
    user-select: none;
    max-height: 100%;
+`;
+
+const Placeholder = styled.div`
+   z-index: 1;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background: url('images/default_artwork.svg');
+   background-size: cover;
+   transition: all 0.3s;
+   opacity: ${props => (props.isHidden ? 0 : 1)};
 `;
 
 const ButtonContainer = styled.div`
@@ -102,6 +121,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 class AlbumView extends Component {
+   state = {
+      isLoaded: false,
+   };
+
    playSong = ({ playlist, index }) => {
       this.props.playSong({ playlist, index });
    };
@@ -133,6 +156,10 @@ class AlbumView extends Component {
       });
    };
 
+   onArtworkLoaded = () => {
+      this.setState({ isLoaded: true });
+   };
+
    componentDidMount() {
       const { album, apiState } = this.props;
       const { albums, albumData } = apiState.data;
@@ -151,19 +178,19 @@ class AlbumView extends Component {
       const { album, apiState, audioState } = this.props;
       const { playlist, currentIndex } = audioState;
       const { albumData } = apiState.data;
+      const { isLoaded } = this.state;
       const tracks = albumData[album];
       const artwork = tracks ? tracks[0] && tracks[0].artwork : null;
       const artist = tracks ? tracks[0] && tracks[0].artist : 'Loading';
       const currentTrack = playlist.length && playlist[currentIndex];
-      const url = artwork
-         ? `http://tannerv.ddns.net:12345/SpotiFree/${artwork}`
-         : `https://lastfm-img2.akamaized.net/i/u/300x300/c6f59c1e5e7240a4c0d427abd71f3dbb`;
+      const url = `http://tannerv.ddns.net:12345/SpotiFree/${artwork}`;
 
       return (
          <Container>
             <MobileHeader>
                <ArtworkContainer>
-                  <Artwork src={url} />
+                  <Placeholder isHidden={isLoaded} />
+                  {artwork && <Artwork src={url} />}
                </ArtworkContainer>
                <TitleContainer>
                   <Title>{album}</Title>
@@ -172,7 +199,10 @@ class AlbumView extends Component {
             </MobileHeader>
             <VisibleDesktop>
                <ArtworkContainer>
-                  <Artwork src={url} />
+                  <Placeholder isHidden={isLoaded} />
+                  {artwork && (
+                     <Artwork src={url} onLoad={this.onArtworkLoaded} />
+                  )}
                </ArtworkContainer>
             </VisibleDesktop>
             <ButtonContainer>
@@ -206,4 +236,7 @@ class AlbumView extends Component {
    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumView);
+export default connect(
+   mapStateToProps,
+   mapDispatchToProps,
+)(AlbumView);

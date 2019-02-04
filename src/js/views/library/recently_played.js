@@ -19,7 +19,6 @@ const ButtonContainer = styled.div`
    margin-top: 16px;
 
    div {
-      margin: 0 16px 16px 0;
       margin-left: 0;
    }
 `;
