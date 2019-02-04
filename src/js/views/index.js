@@ -43,7 +43,7 @@ const PageContainer = styled.div`
    animation: ${props => props.goingBack ? 'slideHi' : 'slideBye'} 0.3s ease-in-out;
    transition: all 0.3s ease-in-out;
    -webkit-overflow-scrolling: touch;
-   overflow: auto;
+   overflow: ${props => props.isPrevView ? 'hidden' : 'auto'};
 
    @keyframes slideBye {
       0% {
