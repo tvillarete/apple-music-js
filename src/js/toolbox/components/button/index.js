@@ -11,6 +11,10 @@ const Container = styled.div`
    border-bottom: 1px solid ${color.gray[3]};
    cursor: pointer;
 
+   :first-of-type {
+      border-top: 1px solid ${color.gray[3]};
+   }
+
    &:active {
       background: ${color.gray[2]};
    }

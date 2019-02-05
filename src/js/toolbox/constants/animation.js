@@ -6,6 +6,7 @@ export default {
          opacity: 0;
       }
    `,
+
    fadeOut: keyframes`
       100% {
          opacity: 0;
@@ -15,6 +16,7 @@ export default {
    scale: keyframes`
       0% {
          transform: scale(0);
+         opacity: 0;
       }
    `,
 
@@ -36,4 +38,16 @@ export default {
          transform: translateY(100vh);
       }
       `,
+
+   slideInFromRight: keyframes`
+      0% {
+         transform: translateX(100vw);
+      }
+   `,
+
+   slideOutToRight: keyframes`
+      100% {
+         transform: translateX(100vw);
+      }
+   `,
 };

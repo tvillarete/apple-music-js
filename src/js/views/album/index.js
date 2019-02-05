@@ -24,11 +24,11 @@ const ArtworkContainer = styled.div`
    margin-right: 32px;
 
    ${breakpointSm} {
-      height: auto;
-      width: auto;
+      height: 36vw;
+      width: 36vw;
       display: block;
       margin-right: 8px;
-      height: 100%;
+      max-height: 100%;
    }
 `;
 

@@ -13,6 +13,9 @@ const Container = styled.div`
    width: 100%;
    text-align: center;
    border-left: 1px solid ${color.gray[2]};
+   border-top: 1px solid #E9E9E9;
+   border-bottom: 1px solid #E9E9E9;
+   background: #F9F9F9;
    box-sizing: border-box;
    transition: all 0.35s ease;
    cursor: pointer;
@@ -22,6 +25,8 @@ const Container = styled.div`
       css`
          height: 40vh;
          border-left: 1px solid transparent;
+         border-top: none;
+         border-bottom: none;
          width: 100%;
          cursor: default;
          background: #fff;

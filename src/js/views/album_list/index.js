@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchAlbums } from '../../api/actions';
 import { pushView } from '../actions';
-import { AlbumButton } from '../../toolbox';
+import { AlbumButton, constants } from '../../toolbox';
+
+const { color } = constants;
 
 const Container = styled.div`
    margin-top: 48px;
+   border-top: 1px solid ${color.gray[2]};
 `;
 
 const ButtonContainer = styled.div`
