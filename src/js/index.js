@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import WelcomeScreen from './components/welcome';
-import ViewContainer from './views';
+import ViewContainer from './views/view_container';
 import Header from './components/header';
 import PopupContainer from './popups';
 import BottomBar from './components/bar';
@@ -16,7 +16,7 @@ const Container = styled.div`
    flex-direction: column;
 `;
 
-export default class SpotiFree extends Component {
+export default class MusicJS extends Component {
    render() {
       return (
          <Container>
