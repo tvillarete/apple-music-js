@@ -10,7 +10,7 @@ const { slideInFromRight, slideOutToRight } = animation;
 const Container = styled.div`
    position: relative;
    width: 100%;
-   max-width: 70em;
+   max-width: 1130px;
    flex: 1;
    overflow: auto;
    margin: 48px auto 64px auto;

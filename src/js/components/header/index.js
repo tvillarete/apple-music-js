@@ -14,12 +14,17 @@ const Container = styled.div`
    top: 0;
    left: 0;
    right: 0;
-   max-width: 72em;
+   max-width: 1200px;
    margin: 0 auto;
    height: ${props => (props.hideTitle ? '48px' : '90px')};
+   padding-left: 48px;
    background: white;
    overflow: hidden;
    transition: all 0.3s ease-in-out;
+
+   @media screen and (max-width: 768px) {
+      padding-left: 0;
+   }
 `;
 
 const ChevronContainer = styled.div`
@@ -42,7 +47,7 @@ const TitleContainer = styled.div`
    position: absolute;
    margin-top: ${props =>
       (props.isBackButton && !props.exiting) || props.isHidden
-         ? '7px'
+         ? '5px'
          : '48px'};
    margin-left: ${props =>
       props.isHidden && !props.exiting ? '-100%' : '24px'};
