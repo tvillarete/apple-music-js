@@ -183,7 +183,7 @@ class AlbumView extends Component {
       const artwork = tracks ? tracks[0] && tracks[0].artwork : null;
       const artist = tracks ? tracks[0] && tracks[0].artist : 'Loading';
       const currentTrack = playlist.length && playlist[currentIndex];
-      const url = `http://tannerv.ddns.net:12345/SpotiFree/${artwork}`;
+      const url = `https://tannerv.ddns.net/SpotiFree/${artwork}`;
 
       return (
          <Container>

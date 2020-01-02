@@ -172,7 +172,7 @@ class MiniControls extends Component {
                     track: '1',
                  };
       const artwork = hasAudio
-         ? `http://tannerv.ddns.net:12345/SpotiFree/${track.artwork}`
+         ? `https://tannerv.ddns.net/SpotiFree/${track.artwork}`
          : `images/default_artwork.svg`;
 
       return (

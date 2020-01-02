@@ -51,7 +51,7 @@ class ArtistView extends Component {
                {albums &&
                   albums.map((item, index) => {
                      const { album, artist, artwork } = item;
-                     const url = `http://tannerv.ddns.net:12345/SpotiReact/${artwork}`;
+                     const url = `https://tannerv.ddns.net/SpotiFree/${artwork}`;
 
                      return (
                         <AlbumButton

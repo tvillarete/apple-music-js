@@ -26,7 +26,7 @@ const PageContainer = styled.div`
    left: 0;
    right: 0;
    padding: 0 24px;
-   background: white
+   background: white;
    transform: ${props =>
       props.secondFromTop && !props.becomingTop ? 'translateX(-20%)' : null};
    overflow: ${props => (props.secondFromTop ? 'hidden' : 'auto')};

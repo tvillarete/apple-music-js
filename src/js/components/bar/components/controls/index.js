@@ -165,7 +165,7 @@ class Controls extends Component {
                   volume={volume}
                   id="audio"
                   onEnded={this.nextSong}
-                  src={`http://tannerv.ddns.net:12345/SpotiFree/${track.url}`}
+                  src={`https://tannerv.ddns.net/SpotiFree/${track.url}`}
                />
             )}
          </Container>
