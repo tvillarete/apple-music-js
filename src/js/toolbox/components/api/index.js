@@ -1,6 +1,6 @@
 class ApiClass {
   constructor() {
-    this.url = `https://05aacd63.ngrok.io/api`;
+    this.url = `https://57c62f9e.ngrok.io/api`;
   }
 
   makeRequest = ({ url, data }) => {
