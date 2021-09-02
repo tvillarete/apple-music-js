@@ -57,3 +57,6 @@ The backend is built with PHP using the Laravel ORM. I only needed a few API end
 - `/artist/{artist}` - Returns a list of all albums from a specific artist
 
 Feel free to reach out if you have questions!
+
+### Local Install
+To run this locally, you need npm. Once it's installed, clone the project (or download it as a zip and unzip it to a directory), open a command prompt or terminal at the root directory with the package.json file, and run "npm install react-scripts" then "npm run start"
