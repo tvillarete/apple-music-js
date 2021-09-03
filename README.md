@@ -58,7 +58,7 @@ The backend is built with PHP using the Laravel ORM. I only needed a few API end
 
 Feel free to reach out if you have questions!
 
-### Local Development
+## Local Development
 To run this app locally, clone the project (or download it as a zip and unzip it to a directory), navigate to the root directory with a command prompt or terminal (where the package.json file is located), and run npm install to download the necessary dependencies onto your local machine.
 
 Inside the root directory, you can run some built-in commands:
